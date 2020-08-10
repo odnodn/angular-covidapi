@@ -1,5 +1,5 @@
 import { Component, VERSION } from '@angular/core';
-import { Country, Covid19ApiService } from './covid19-api.service'; 
+import { Covid19ApiService } from './covid19-api.service'; 
 import { Observable, Subject } from 'rxjs';
 import {
   tap,
@@ -10,9 +10,16 @@ import {
 
 // count 188 date 2020-08-09 result Array[188]- confirmed deaths recovered
 export class covidData {
-  confirmed:number;
-  deaths:number;
-  recovered:number;
+    count: number;
+    date: string;
+    result: Array<Country>;
+}
+
+export class Country{
+  countryname: string;
+  confirmed: number;
+  deaths: number;
+  recovered: number;
 }
 
 
@@ -28,9 +35,10 @@ export class AppComponent  {
   countries$: Observable<Country[]>;
   private searchTerms = new Subject<string>();
 
-  covidResults$: Observable<object>;
+  covidResults$: Observable<covidData>;
+  covidResults: any;
 
-  constructor(private countryService: Covid19ApiService) { }
+  constructor(private covidService: Covid19ApiService) { }
 
   search(term: string) {
     this.searchTerms.next(term);
@@ -41,14 +49,39 @@ export class AppComponent  {
       tap(_ => this.loading = true),
       debounceTime(300),
       distinctUntilChanged(),
-      switchMap((term: string) => this.countryService.searchCountry(term)),
+      switchMap((term: string) => this.covidService.searchCovid(term)),
       tap(_ => this.loading = false)
     ) */
 
-    this.countryService.getLatest()
+    this.covidService.getLatest()
       .subscribe(response => { 
         this.covidResults$ = response;
-        console.log(this.covidResults$);
+        this.covidResults = response.result;
+        this.rebuild(response.result);
+        // console.log(JSON.stringify(this.covidResults$));
+        //console.log(this.covidResults);
         } );
+  }
+
+  countryData: Country[];
+
+  rebuild(result: []){
+      this.countryData
+
+      result.forEach( item => {
+          this.rebuildItem(item); //console.log(item)
+      })
+  }
+
+  rebuildItem(result){
+    let country: Country = new Country();
+
+    // console.log(Object.getOwnPropertyNames(result) );
+    // console.log(result[Object.getOwnPropertyNames(result)].confirmed)
+    country.countryname = Object.getOwnPropertyNames(result)[0];
+    country.confirmed = result[Object.getOwnPropertyNames(result)].confirmed;
+    country.deaths = result[Object.getOwnPropertyNames(result)].deaths;
+    country.recovered = result[Object.getOwnPropertyNames(result)].recovered;
+    // console.log(country);
   }
 }
