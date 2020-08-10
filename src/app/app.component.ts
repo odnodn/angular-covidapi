@@ -66,7 +66,7 @@ export class AppComponent  {
   countryData: Country[];
 
   rebuild(result: []){
-      this.countryData
+      this.countryData = [];
 
       result.forEach( item => {
           this.rebuildItem(item); //console.log(item)
@@ -83,5 +83,6 @@ export class AppComponent  {
     country.deaths = result[Object.getOwnPropertyNames(result)].deaths;
     country.recovered = result[Object.getOwnPropertyNames(result)].recovered;
     // console.log(country);
+    this.countryData.push(country);
   }
 }
