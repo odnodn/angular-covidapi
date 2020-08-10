@@ -10,6 +10,7 @@ import {
 
 import { iso } from './data/iso-3166';
 import {cities} from 'country-json';
+import population from './data/country-by-population.json'
 
 // count 188 date 2020-08-09 result Array[188]- confirmed deaths recovered
 export class covidData {
@@ -99,6 +100,10 @@ export class AppComponent  {
     country.recovered = recovered;
     // console.log(country);
     this.countryData.push(country);
-    
+    console.log(population.length);
   }
 }
+
+
+// https://github.com/samayo/country-json
+// https://restcountries.eu/rest/v2/all
