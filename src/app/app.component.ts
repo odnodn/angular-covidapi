@@ -8,6 +8,14 @@ import {
   distinctUntilChanged
 } from "rxjs/operators";
 
+// count 188 date 2020-08-09 result Array[188]- confirmed deaths recovered
+export class covidData {
+  confirmed:number;
+  deaths:number;
+  recovered:number;
+}
+
+
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',
