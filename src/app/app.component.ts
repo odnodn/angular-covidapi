@@ -9,6 +9,7 @@ import {
 } from "rxjs/operators";
 
 import { iso } from './data/iso-3166';
+import {cities} from 'country-json';
 
 // count 188 date 2020-08-09 result Array[188]- confirmed deaths recovered
 export class covidData {
@@ -18,6 +19,7 @@ export class covidData {
 }
 
 export class Country{
+  symbol: string;
   countryname: string;
   confirmed: number;
   deaths: number;
@@ -88,11 +90,15 @@ export class AppComponent  {
     // console.log(iso.whereAlpha3(countryName))
     //country.countryname = Object.getOwnPropertyNames(result)[0];
     //country.countryname = iso.whereAlpha3(countryName).country;       // TODO
-    country.countryname = countryName;
+    var countryLookup;
+    if (iso.whereAlpha3(countryName)) {countryLookup = iso.whereAlpha3(countryName).country} else { countryLookup = ""};
+    country.symbol = countryName;
+    country.countryname = countryLookup;
     country.confirmed = confirmed;
     country.deaths = deaths;
     country.recovered = recovered;
     // console.log(country);
     this.countryData.push(country);
+    
   }
 }
