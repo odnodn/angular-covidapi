@@ -15,6 +15,9 @@ export class Country {
 export class Covid19ApiService {
   endpoint: string = "https://restcountries.eu/rest/v2/name/";
 
+  // https://covidapi.info/api/v1/country/' + value + '/latest
+  // https://covidapi.info/api/v1/country/' + yourCountry + '/timeseries/' + startDate + '/' + endDate
+
   constructor(private http: HttpClient) { }
 
   searchCountry(term: string): Observable<Country[]> {
@@ -43,3 +46,6 @@ export class Covid19ApiService {
   }
 
 }
+
+// https://stackoverflow.com/questions/16253060/how-to-convert-country-names-to-iso-3166-1-alpha-2-values-using-python
+// https://github.com/ecrmnn/iso-3166-1

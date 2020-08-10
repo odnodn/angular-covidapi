@@ -8,6 +8,8 @@ import {
   distinctUntilChanged
 } from "rxjs/operators";
 
+import { iso } from './data/iso-3166';
+
 // count 188 date 2020-08-09 result Array[188]- confirmed deaths recovered
 export class covidData {
     count: number;
@@ -78,10 +80,18 @@ export class AppComponent  {
 
     // console.log(Object.getOwnPropertyNames(result) );
     // console.log(result[Object.getOwnPropertyNames(result)].confirmed)
-    country.countryname = Object.getOwnPropertyNames(result)[0];
-    country.confirmed = result[Object.getOwnPropertyNames(result)].confirmed;
-    country.deaths = result[Object.getOwnPropertyNames(result)].deaths;
-    country.recovered = result[Object.getOwnPropertyNames(result)].recovered;
+
+    var countryName = Object.getOwnPropertyNames(result)[0];
+    var confirmed =result[Object.getOwnPropertyNames(result)].confirmed;
+    var deaths = result[Object.getOwnPropertyNames(result)].deaths;
+    var recovered = result[Object.getOwnPropertyNames(result)].recovered;
+    // console.log(iso.whereAlpha3(countryName))
+    //country.countryname = Object.getOwnPropertyNames(result)[0];
+    //country.countryname = iso.whereAlpha3(countryName).country;       // TODO
+    country.countryname = countryName;
+    country.confirmed = confirmed;
+    country.deaths = deaths;
+    country.recovered = recovered;
     // console.log(country);
     this.countryData.push(country);
   }
