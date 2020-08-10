@@ -104,6 +104,7 @@ export class AppComponent  {
   }
 }
 
-
+// https://ourworldindata.org/covid-cases?country=~debounceTime
+// https://covid.ourworldindata.org/data/owid-covid-data.json
 // https://github.com/samayo/country-json
 // https://restcountries.eu/rest/v2/all
