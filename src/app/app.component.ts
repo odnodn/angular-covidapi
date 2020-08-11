@@ -1,6 +1,6 @@
-import { Component, VERSION } from '@angular/core';
-import { Covid19ApiService } from './covid19-api.service'; 
-import { Observable, Subject } from 'rxjs';
+import { Component, VERSION } from "@angular/core";
+import { Covid19ApiService } from "./covid19-api.service";
+import { Observable, Subject } from "rxjs";
 import {
   tap,
   switchMap,
@@ -8,18 +8,18 @@ import {
   distinctUntilChanged
 } from "rxjs/operators";
 
-import { iso } from './data/iso-3166';
-import {cities} from 'country-json';
-import populations from './data/country-by-population.json'
+import { iso } from "./data/iso-3166";
+import { cities } from "country-json";
+import populations from "./data/country-by-population.json";
 
 // count 188 date 2020-08-09 result Array[188]- confirmed deaths recovered
 export class covidData {
-    count: number;
-    date: string;
-    result: Array<Country>;
+  count: number;
+  date: string;
+  result: Array<Country>;
 }
 
-export class Country{
+export class Country {
   symbol: string;
   countryname: string;
   population: number;
@@ -30,14 +30,13 @@ export class Country{
   recovered: number;
 }
 
-
 @Component({
-  selector: 'my-app',
-  templateUrl: './app.component.html',
-  styleUrls: [ './app.component.css' ]
+  selector: "my-app",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"]
 })
-export class AppComponent  {
-  name = 'Angular ' + VERSION.major;
+export class AppComponent {
+  name = "Angular " + VERSION.major;
 
   loading: boolean = false;
   countries$: Observable<Country[]>;
@@ -46,14 +45,14 @@ export class AppComponent  {
   covidResults$: Observable<covidData>;
   covidResults: any;
 
-  constructor(private covidService: Covid19ApiService) { }
+  constructor(private covidService: Covid19ApiService) {}
 
   search(term: string) {
     this.searchTerms.next(term);
   }
 
   ngOnInit(): void {
-/*     this.countries$ = this.searchTerms.pipe(
+    /*     this.countries$ = this.searchTerms.pipe(
       tap(_ => this.loading = true),
       debounceTime(300),
       distinctUntilChanged(),
@@ -61,56 +60,55 @@ export class AppComponent  {
       tap(_ => this.loading = false)
     ) */
 
-  console.log(populations[0]);
-  
+    console.log(populations[0]);
 
-    this.covidService.getLatest()
-      .subscribe(response => { 
-        this.covidResults$ = response;
-        this.covidResults = response.result;
-        this.rebuild(response.result);
-        // console.log(JSON.stringify(this.covidResults$));
-        //console.log(this.covidResults);
-        } );
-
-       
+    this.covidService.getLatest().subscribe(response => {
+      this.covidResults$ = response;
+      this.covidResults = response.result;
+      this.rebuild(response.result);
+      // console.log(JSON.stringify(this.covidResults$));
+      //console.log(this.covidResults);
+    });
   }
 
   countryData: Country[];
 
-  rebuild(result: []){
-      this.countryData = [];
+  rebuild(result: []) {
+    this.countryData = [];
 
-      result.forEach( item => {
-          this.rebuildItem(item); //console.log(item)
-      })
+    result.forEach(item => {
+      this.rebuildItem(item); //console.log(item)
+    });
   }
 
-  rebuildItem(result){
+  rebuildItem(result) {
     let country: Country = new Country();
 
     // console.log(Object.getOwnPropertyNames(result) );
     // console.log(result[Object.getOwnPropertyNames(result)].confirmed)
 
-    var countryName = Object.getOwnPropertyNames(result)[0];
-    var confirmed =result[Object.getOwnPropertyNames(result)].confirmed;
-    var deaths = result[Object.getOwnPropertyNames(result)].deaths;
-    var recovered = result[Object.getOwnPropertyNames(result)].recovered;
+    var countryName = Object.getOwnPropertyNames(result)[0];                // [ "USA": {confirmed: , deaths: , recovered: }] -> USA
+    var confirmed = result[Object.getOwnPropertyNames(result)].confirmed;   // -> confirmed
+    var deaths = result[Object.getOwnPropertyNames(result)].deaths;         // -> deaths
+    var recovered = result[Object.getOwnPropertyNames(result)].recovered;   // -> recovered 
     // console.log(iso.whereAlpha3(countryName))
     //country.countryname = Object.getOwnPropertyNames(result)[0];
     //country.countryname = iso.whereAlpha3(countryName).country;       // TODO
-    var countryLookup;
-    if (iso.whereAlpha3(countryName)) {countryLookup = iso.whereAlpha3(countryName).country} else { countryLookup = ""};
-    var population, confirmedPerPop, deathsPerPop;
-    var pop = populations.find((country) => country.country.toUpperCase() === countryLookup.toUpperCase());
+    var countryLookup = this.getCountry(countryName);
+
+    var   population      = this.getPopulation(countryLookup) , 
+          confirmedPerPop = this.getConfirmedPerPop(confirmed, population), 
+          deathsPerPop    = this.getDeathsPerPop(deaths, population);
+/*     var pop = populations.find(
+      country => country.country.toUpperCase() === countryLookup.toUpperCase()
+    );
     if (pop) {
       population = pop.population;
-      confirmedPerPop = Math.round(confirmed * (100000/population));
-      deathsPerPop =  Math.round(deaths * (100000/population));
-      } else 
-      { 
-        population = "";
-        };
+      confirmedPerPop = Math.round(confirmed * (100000 / population));
+      deathsPerPop = Math.round(deaths * (100000 / population));
+    } else {
+      population = "";
+    } */
     country.symbol = countryName;
     country.countryname = countryLookup;
     country.population = population;
@@ -121,7 +119,72 @@ export class AppComponent  {
     country.recovered = recovered;
     // console.log(country);
     this.countryData.push(country);
-    
+  }
+
+  getCountry(alphaCode: string): string {
+    var countryLookup;
+    if (iso.whereAlpha3(alphaCode)) {
+      countryLookup = iso.whereAlpha3(alphaCode).country;
+      switch (countryLookup) {
+        case "United States of America":
+          countryLookup = "United States";
+          break;
+        case "United Kingdom of Great Britain and Northern Ireland":
+          countryLookup = "United Kingdom";
+          break;
+        case "Viet Nam":
+          countryLookup = "Vietnam";
+          break;
+        case "Venezuela":
+          break; // ToDo
+        case "Lybia":
+          break; // ToDo
+        case "Islamic Republic of Iran":
+          break; // ToDo
+        case "Republic of Korea":
+          break; // ToDo
+        case "Republic of Moldova":
+          break; // ToDo
+      }
+    } else {
+      countryLookup = "";
+    }
+    return countryLookup;
+  }
+
+  getContinent(countryName: string) {}
+
+  getPopulation(countryName: string) {
+    var population;
+    var pop = populations.find(
+      country => country.country.toUpperCase() === countryName.toUpperCase()
+    );
+    if (pop) {
+      population = pop.population;
+    } else {
+      population = "0";
+    }
+    return population;
+  }
+
+  getConfirmedPerPop(confirmed: number, population: number): number{
+    if (population === 0) return 0;
+
+    var confirmedPerPop;
+    confirmedPerPop = Math.round(confirmed * (100000 / population));
+    return confirmedPerPop;
+  }
+
+  getDeathsPerPop(deaths: number, population: number): number{
+    if (population === 0) return 0;
+
+    var deathsPerPop;
+    deathsPerPop = Math.round(deaths * (100000 / population));
+    return deathsPerPop;
+  }
+
+  getStats(confirmed: number, deaths: number, population: number ):[] {
+    return [];
   }
 }
 
@@ -135,11 +198,10 @@ export class AppComponent  {
 // https://github.com/samayo/country-json
 // https://restcountries.eu/rest/v2/all
 
- // https://www.programmableweb.com/api/robert-koch-institut-covid-19-data-rest-api-v10
+// https://www.programmableweb.com/api/robert-koch-institut-covid-19-data-rest-api-v10
 // https://dataconomy.com/2020/04/apis-to-track-coronavirus-covid-19/
 // https://www.freecodecamp.org/news/how-to-create-corona-tracker-app-in-3-days/
 // https://github.com/marlon360/rki-covid-api
-
 
 // https://www.npmjs.com/search?q=keywords:coronavirus
 // https://github.com/ChrisMichaelPerezSantiago/covid19#readme

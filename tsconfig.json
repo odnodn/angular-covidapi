@@ -20,8 +20,8 @@
     ],
     // JSON imports
     "resolveJsonModule": true,
-"esModuleInterop": true,
-"allowSyntheticDefaultImports": true
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {
     "enableIvy": false,
