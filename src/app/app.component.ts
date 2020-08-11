@@ -9,7 +9,7 @@ import {
 } from "rxjs/operators";
 
 import { iso } from "./data/iso-3166";
-import { cities } from "country-json";
+import cities from "./data/countries.json";
 import populations from "./data/country-by-population.json";
 
 // count 188 date 2020-08-09 result Array[188]- confirmed deaths recovered
@@ -21,6 +21,7 @@ export class covidData {
 
 export class Country {
   symbol: string;
+  continent: string;
   countryname: string;
   population: number;
   confirmed: number;
@@ -61,6 +62,7 @@ export class AppComponent {
     ) */
 
     console.log(populations[0]);
+    console.log(cities[0]);
 
     this.covidService.getLatest().subscribe(response => {
       this.covidResults$ = response;
@@ -87,29 +89,21 @@ export class AppComponent {
     // console.log(Object.getOwnPropertyNames(result) );
     // console.log(result[Object.getOwnPropertyNames(result)].confirmed)
 
-    var countryName = Object.getOwnPropertyNames(result)[0]; // [ "USA": {confirmed: , deaths: , recovered: }] -> USA
+    var countryNameAlpha3 = Object.getOwnPropertyNames(result)[0]; // [ "USA": {confirmed: , deaths: , recovered: }] -> USA
     var confirmed = result[Object.getOwnPropertyNames(result)].confirmed; // -> confirmed
     var deaths = result[Object.getOwnPropertyNames(result)].deaths; // -> deaths
     var recovered = result[Object.getOwnPropertyNames(result)].recovered; // -> recovered
     // console.log(iso.whereAlpha3(countryName))
     //country.countryname = Object.getOwnPropertyNames(result)[0];
     //country.countryname = iso.whereAlpha3(countryName).country;       // TODO
-    var countryLookup = this.getCountry(countryName);
+    var countryLookup = this.getCountry(countryNameAlpha3);
 
     var population = this.getPopulation(countryLookup),
       confirmedPerPop = this.getConfirmedPerPop(confirmed, population),
       deathsPerPop = this.getDeathsPerPop(deaths, population);
-    /*     var pop = populations.find(
-      country => country.country.toUpperCase() === countryLookup.toUpperCase()
-    );
-    if (pop) {
-      population = pop.population;
-      confirmedPerPop = Math.round(confirmed * (100000 / population));
-      deathsPerPop = Math.round(deaths * (100000 / population));
-    } else {
-      population = "";
-    } */
-    country.symbol = countryName;
+
+    country.symbol = countryNameAlpha3;
+    country.continent = this.getContinent(countryNameAlpha3);
     country.countryname = countryLookup;
     country.population = population;
     country.confirmedPerPop = confirmedPerPop;
@@ -125,6 +119,8 @@ export class AppComponent {
     var countryLookup;
     if (iso.whereAlpha3(alphaCode)) {
       countryLookup = iso.whereAlpha3(alphaCode).country;
+
+      // corrections
       switch (countryLookup) {
         case "United States of America":
           countryLookup = "United States";
@@ -152,7 +148,33 @@ export class AppComponent {
     return countryLookup;
   }
 
-  getContinent(countryName: string) {}
+  getContinent(countryNameAlpha3: string) {
+    if (!countryNameAlpha3) return "";
+    var continentlookup, continent;
+    continentlookup = cities.find( item => item.alpha_3 === countryNameAlpha3 );
+    if (continentlookup) {
+      continent = continentlookup.continent;
+
+      switch (continent){
+        case "EU":
+          continent = "Europa"; break;
+        case "NA":
+          continent = "Nordamerika"; break;
+        case "SA":
+          continent = "Südamerika"; break;
+        case "AS":
+          continent = "Asien"; break;
+        case "AF":
+          continent = "Afrika"; break;
+        case "OC":
+          continent = "O"; break;
+      }
+
+      return continent;
+    }
+    else { return "";}
+    
+  }
 
   getPopulation(countryName: string) {
     var population;
@@ -188,6 +210,16 @@ export class AppComponent {
   }
 }
 
+/**
+ * 
+SCHEMA
+countries.json
+  continent	      EU AS NA SA AF AN OC 
+  population
+  alpha_2
+  alpha_3
+ * 
+ */
 // x      100TSD
 // cases  population
 // x = 100.000 / population * confirmed
