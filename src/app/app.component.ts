@@ -58,6 +58,8 @@ export class AppComponent  {
       tap(_ => this.loading = false)
     ) */
 
+  // console.log(population[0]);
+
     this.covidService.getLatest()
       .subscribe(response => { 
         this.covidResults$ = response;
@@ -66,6 +68,8 @@ export class AppComponent  {
         // console.log(JSON.stringify(this.covidResults$));
         //console.log(this.covidResults);
         } );
+
+       
   }
 
   countryData: Country[];
@@ -100,11 +104,24 @@ export class AppComponent  {
     country.recovered = recovered;
     // console.log(country);
     this.countryData.push(country);
-    console.log(population.length);
+    
   }
 }
 
+// https://covidapi.info/api/v1/country/DEU/latest
 // https://ourworldindata.org/covid-cases?country=~debounceTime
 // https://covid.ourworldindata.org/data/owid-covid-data.json
 // https://github.com/samayo/country-json
 // https://restcountries.eu/rest/v2/all
+
+ // https://www.programmableweb.com/api/robert-koch-institut-covid-19-data-rest-api-v10
+// https://dataconomy.com/2020/04/apis-to-track-coronavirus-covid-19/
+// https://www.freecodecamp.org/news/how-to-create-corona-tracker-app-in-3-days/
+// https://github.com/marlon360/rki-covid-api
+
+
+// https://www.npmjs.com/search?q=keywords:coronavirus
+// https://github.com/ChrisMichaelPerezSantiago/covid19#readme
+// https://github.com/disease-sh/node-api#readme
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
