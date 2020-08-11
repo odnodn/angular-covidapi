@@ -10,7 +10,7 @@ import {
 
 import { iso } from './data/iso-3166';
 import {cities} from 'country-json';
-import population from './data/country-by-population.json'
+import populations from './data/country-by-population.json'
 
 // count 188 date 2020-08-09 result Array[188]- confirmed deaths recovered
 export class covidData {
@@ -22,8 +22,11 @@ export class covidData {
 export class Country{
   symbol: string;
   countryname: string;
+  population: number;
   confirmed: number;
+  confirmedPerPop: number;
   deaths: number;
+  deathsPerPop: number;
   recovered: number;
 }
 
@@ -58,7 +61,8 @@ export class AppComponent  {
       tap(_ => this.loading = false)
     ) */
 
-  // console.log(population[0]);
+  console.log(populations[0]);
+  
 
     this.covidService.getLatest()
       .subscribe(response => { 
@@ -97,16 +101,33 @@ export class AppComponent  {
     //country.countryname = iso.whereAlpha3(countryName).country;       // TODO
     var countryLookup;
     if (iso.whereAlpha3(countryName)) {countryLookup = iso.whereAlpha3(countryName).country} else { countryLookup = ""};
+    var population, confirmedPerPop, deathsPerPop;
+    var pop = populations.find((country) => country.country.toUpperCase() === countryLookup.toUpperCase());
+    if (pop) {
+      population = pop.population;
+      confirmedPerPop = Math.round(confirmed * (100000/population));
+      deathsPerPop =  Math.round(deaths * (100000/population));
+      } else 
+      { 
+        population = "";
+        };
     country.symbol = countryName;
     country.countryname = countryLookup;
+    country.population = population;
+    country.confirmedPerPop = confirmedPerPop;
     country.confirmed = confirmed;
     country.deaths = deaths;
+    country.deathsPerPop = deathsPerPop;
     country.recovered = recovered;
     // console.log(country);
     this.countryData.push(country);
     
   }
 }
+
+// x      100TSD
+// cases  population
+// x = 100.000 / population * confirmed
 
 // https://covidapi.info/api/v1/country/DEU/latest
 // https://ourworldindata.org/covid-cases?country=~debounceTime
