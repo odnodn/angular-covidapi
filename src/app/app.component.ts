@@ -12,7 +12,8 @@ import {
 import {
   GridComponent,
   ToolbarItems,
-  GroupSettingsModel
+  GroupSettingsModel,
+  ColumnModel
 } from "@syncfusion/ej2-angular-grids";
 import { ClickEventArgs } from "@syncfusion/ej2-angular-navigations";
 
@@ -59,8 +60,11 @@ export class AppComponent {
   // grid
   // aggregates: sum, average, min, max, count, trueCount, FalseCount
   // public groupOptions: GroupSettingsModel = { showDropArea: true, columns: ['deathsPerPop'] };
-  public toolbarOptions: ToolbarItems[];
   @ViewChild("grid") public grid: GridComponent;
+  public toolbarOptions: ToolbarItems[];
+  public sortOptions: object;
+  public confirmedColumns: ColumnModel[];
+  public deathsColumns: ColumnModel[];
 
   constructor(private covidService: Covid19ApiService) {}
 
@@ -79,9 +83,10 @@ export class AppComponent {
 
     // grid
     this.toolbarOptions = [
-      'ExcelExport',
-      'CsvExport',
-      'PdfExport',
+      "ExcelExport",
+      "CsvExport",
+      "PdfExport",
+      "ColumnChooser",    // grid: [showColumnChooser]= 'true' , column: [showInColumnChooser]='false'
       {
         text: "Expand All",
         tooltipText: "Expand All",
@@ -95,6 +100,46 @@ export class AppComponent {
         prefixIcon: "e-collapse",
         id: "collapseall",
         align: "Right"
+      }
+    ];
+    this.sortOptions = {
+      columns: [{ field: "deathsPerPop", direction: "Ascending" }]
+    };
+    // this.sortOptions = { columns: [{ field: 'deathsPerPop', direction: 'Ascending' }, { field: 'ShipCity', direction: 'Descending' }] };
+
+    // <e-column headerText='confirmed' [columns]='confirmedColumns'></e-column>
+    // <e-column headerText='deaths' [columns]='deathsColumns'></e-column>
+    this.confirmedColumns = [
+      {
+        field: "confirmed",
+        headerText: "total",
+        format: "N0",
+        width: 120,
+        textAlign: "Right",
+        minWidth: 10
+      },
+      {
+        field: "confirmedPerPop",
+        headerText: "perPop",
+        width: 100,
+        format: "N0",
+        textAlign: "Right",
+        minWidth: 10
+      }
+    ];
+
+    this.deathsColumns = [
+      {
+        field: "daeths",
+        headerText: "total",
+        width: 100,
+        minWidth: 10
+      },
+      {
+        field: "deathsPerPop",
+        headerText: "perPop",
+        width: 120,
+        minWidth: 10
       }
     ];
 
@@ -259,6 +304,15 @@ export class AppComponent {
       // 'Grid_excelexport' -> Grid component id + _ + toolbar item name
       this.grid.excelExport();
     }
+    if (args.item.id === "Grid_csvexport") {
+      // 'Grid_excelexport' -> Grid component id + _ + toolbar item name
+      this.grid.csvExport();
+    }
+    if (args.item.id === "Grid_pdfexport") {
+      // ToDo : import PDF module
+      // 'Grid_excelexport' -> Grid component id + _ + toolbar item name
+      this.grid.pdfExport();
+    }
     if (args.item.id === "expandall") {
       this.grid.groupModule.expandAll();
     }
@@ -273,7 +327,10 @@ export class AppComponent {
   }
 
   disable() {
-    this.grid.toolbarModule.enableItems(  ["Grid_Collapse", "Grid_Expand"], false ); // Disable toolbar items.
+    this.grid.toolbarModule.enableItems(
+      ["Grid_Collapse", "Grid_Expand"],
+      false
+    ); // Disable toolbar items.
   }
 }
 

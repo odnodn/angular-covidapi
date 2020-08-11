@@ -1,81 +1,87 @@
 <h1>COVID19</h1>
 <p>
-  Letzter Stand: 
+	Letzter Stand:
 </p>
 
 
-<ejs-grid id='Grid' [dataSource]='countryData' 
-  [allowPaging]="false" [allowSorting]="true"
-  [allowFiltering]="true" [allowGrouping]="true" allowResizing="true"
-  [pageSettings]='pageSettings'  [groupSettings]="groupOptions" [toolbar]='toolbarOptions'
-  [allowExcelExport]='true' (toolbarClick)='toolbarClick($event)'
-  allowResizing="true"
-  height=500>
-    <e-columns>
-      <e-column field='symbol' headerText='symb.' textAlign='Center' width=90></e-column>
-      <e-column field='continent' headerText='Kontinent' textAlign='Right' width=150></e-column>
-      <e-column field='countryname' headerText='Land' textAlign='Right' width=180></e-column>
-      <e-column field='population' headerText='Population' textAlign='Right' width=90></e-column>
-      <e-column field='confirmed' headerText='confirmed' textAlign='Right' width=110></e-column>
-      <e-column field='confirmedPerPop' headerText='' textAlign='Center' width=90></e-column>
-      <e-column field='deaths' headerText='deaths' textAlign='Right' width=100></e-column>
-      <e-column field='deathsPerPop' headerText='' textAlign='Center' width=90></e-column>
-      <!-- <e-column field='recovered' headerText='recovered' textAlign='Right' width=90 format=""></e-column> -->
-    </e-columns>  
-        <e-aggregates>
-        <e-aggregate>
-            <e-columns>
-                <e-column field="confirmed" type="sum">
-                    <ng-template #footerTemplate let-data>Sum: {{data.sum}}</ng-template>
-                </e-column>
-                <e-column field="deaths" type="sum">
-                    <ng-template #footerTemplate let-data>Sum: {{data.sum}}</ng-template>
-                </e-column>
-                <e-column field="deathsPerPop" type="min">
+<ejs-grid id='Grid' #grid [dataSource]='countryData' [allowPaging]="false" [allowSorting]="true" [allowFiltering]="true"
+	[allowGrouping]="true" allowResizing="true" [allowReordering]='true' allowResizing='true'
+  [showColumnChooser]= 'true'
+	[pageSettings]='pageSettings' [groupSettings]="groupOptions" [toolbar]='toolbarOptions' [sortSettings]='sortOptions'
+	[allowExcelExport]='true' (toolbarClick)='toolbarClick($event)' height=500>
+	<e-columns>
+		<!-- column type : string number boolean date datetime -->
+<!-- 		<e-column headerText='Employee Image' width='150' textAlign='Center'>
+			<ng-template #template let-data>
+				<div class="image">
+					<img src="https://ej2.syncfusion.com/angular/demos/src/grid/images/{{data.EmployeeID}}.png" alt="{{data.EmployeeID}}"/>
+                                </div>
+			</ng-template>
+		</e-column> -->
+		<e-column field='symbol' headerText='symb.' textAlign='Center' width=90></e-column>
+		<e-column field='continent' headerText='Kontinent' textAlign='Right' width=120></e-column>
+		<e-column field='countryname' headerText='Land' textAlign='Right' width=120></e-column>
+		<e-column field='population' headerText='Population' textAlign='Right' width=90 format="N0"></e-column>
+		<e-column field='confirmed' headerText='confirmed' textAlign='Right' width=110 format="N0"></e-column>
+		<e-column field='confirmedPerPop' headerText='perPop' textAlign='Center' width=90></e-column>
+		<e-column field='deaths' headerText='deaths' textAlign='Right' width=100 format="N0"></e-column>
+		<e-column field='deathsPerPop' headerText='perPop' textAlign='Center' width=90></e-column>
+		<!-- <e-column field='recovered' headerText='recovered' textAlign='Right' width=90 format=""></e-column> -->
+	</e-columns>
+	<e-aggregates>
+		<e-aggregate>
+			<e-columns>
+				<e-column field="confirmed" type="sum" format="N0">
+					<ng-template #footerTemplate let-data>Sum: {{data.sum}}</ng-template>
+				</e-column>
+				<e-column field="deaths" type="sum" format="N0">
+					<ng-template #footerTemplate let-data>Sum: {{data.sum}}</ng-template>
+				</e-column>
+				<!--                 <e-column field="deathsPerPop" type="min">
                     <ng-template #footerTemplate let-data>Min: {{data.min}}</ng-template>
                 </e-column>
                 <e-column field="deathsPerPop" type="max">
                     <ng-template #footerTemplate let-data>Max: {{data.max}}</ng-template>
-                </e-column>
-                <e-column field="deathsPerPop" type="average">
-                    <ng-template #footerTemplate let-data>Average: {{data.average}}</ng-template>
-                </e-column>
-                <e-column field="confirmedPerPop" type="min">
+                </e-column> -->
+				<e-column field="deathsPerPop" type="average" format="N0">
+					<ng-template #footerTemplate let-data>Average: {{data.average}}</ng-template>
+				</e-column>
+				<!--                 <e-column field="confirmedPerPop" type="min">
                     <ng-template #footerTemplate let-data>Min: {{data.min}}</ng-template>
                 </e-column>
                 <e-column field="confirmedPerPop" type="max">
                     <ng-template #footerTemplate let-data>Max: {{data.max}}</ng-template>
-                </e-column>
-                <e-column field="confirmedPerPop" type="average">
-                    <ng-template #footerTemplate let-data>Average: {{data.average}}</ng-template>
-                </e-column>
-            </e-columns>
-        </e-aggregate>
-    </e-aggregates>         
- </ejs-grid>
+                </e-column> -->
+				<e-column field="confirmedPerPop" type="average" format="N0">
+					<ng-template #footerTemplate let-data>Average: {{data.average}}</ng-template>
+				</e-column>
+			</e-columns>
+		</e-aggregate>
+	</e-aggregates>
+</ejs-grid>
 
 <div class="container">
-  <form>
-    <div class="form-group search-bar">
-      <!-- Search -->
-      <input type="text" class="form-control" placeholder="Search..." #searchBox (input)="search(searchBox.value)">
+	<form>
+		<div class="form-group search-bar">
+			<!-- Search -->
+			<input type="text" class="form-control" placeholder="Search..." #searchBox (input)="search(searchBox.value)">
 
-      <!-- Progres -->
-      <div class="loader" *ngIf="loading">
-        <div class="c-three-dots-loader"></div>
-      </div>
-    </div>
+			<!-- Progres -->
+			<div class="loader" *ngIf="loading">
+				<div class="c-three-dots-loader"></div>
+			</div>
+		</div>
 
-    <!-- Search Result -->
-    <div class="list-group">
-      <div class="list-group-item list-group-item-action" *ngFor="let country of countries$ | async">
-        <div class="media">
-          <img src="{{country.flag}}" class="mr-3" alt="...">
-          <div class="media-body">
-            <p class="mt-0">{{ country.name }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
+		<!-- Search Result -->
+		<div class="list-group">
+			<div class="list-group-item list-group-item-action" *ngFor="let country of countries$ | async">
+				<div class="media">
+					<img src="{{country.flag}}" class="mr-3" alt="...">
+					<div class="media-body">
+						<p class="mt-0">{{ country.name }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
 </div>
