@@ -3,62 +3,121 @@
 	Letzter Stand:
 </p>
 
-
-<ejs-grid id='Grid' #grid [dataSource]='countryData' [allowPaging]="false" [allowSorting]="true" [allowFiltering]="true"
-	[allowGrouping]="true" allowResizing="true" [allowReordering]='true' allowResizing='true'
-  [showColumnChooser]= 'true'
-	[pageSettings]='pageSettings' [groupSettings]="groupOptions" [toolbar]='toolbarOptions' [sortSettings]='sortOptions'
-	[allowExcelExport]='true' (toolbarClick)='toolbarClick($event)' height=500>
-	<e-columns>
-		<!-- column type : string number boolean date datetime -->
-<!-- 		<e-column headerText='Employee Image' width='150' textAlign='Center'>
+<ejs-tab>
+	<e-tabitems>
+		<e-tabitem>
+			<ng-template #headerText>
+				<div>Welt</div>
+			</ng-template>
+			<ng-template #content>
+				<ejs-grid id='Grid' #grid [dataSource]='countryData' [allowPaging]="false" [allowSorting]="true"
+					[allowFiltering]="true" [allowGrouping]="true" allowResizing="true" [allowReordering]='true'
+					allowResizing='true' [showColumnChooser]='true' [pageSettings]='pageSettings'
+					[groupSettings]="groupOptions" [toolbar]='toolbarOptions' [sortSettings]='sortOptions'
+					[allowExcelExport]='true' (toolbarClick)='toolbarClick($event)' height=500>
+					<e-columns>
+						<!-- column type : string number boolean date datetime -->
+						<!-- 		<e-column headerText='Employee Image' width='150' textAlign='Center'>
 			<ng-template #template let-data>
 				<div class="image">
 					<img src="https://ej2.syncfusion.com/angular/demos/src/grid/images/{{data.EmployeeID}}.png" alt="{{data.EmployeeID}}"/>
                                 </div>
 			</ng-template>
 		</e-column> -->
-		<e-column field='symbol' headerText='symb.' textAlign='Center' width=90 [visible]='false'></e-column>
-		<e-column field='continent' headerText='Kontinent' textAlign='Right' width=120></e-column>
-		<e-column field='countryname' headerText='Land' textAlign='Right' width=120></e-column>
-		<e-column field='population' headerText='Population' textAlign='Right' width=90 format="N0" [visible]='false'></e-column>
-		<e-column field='confirmed' headerText='confirmed' textAlign='Right' width=110 format="N0"></e-column>
-		<e-column field='confirmedPerPop' headerText='perPop' textAlign='Center' width=90></e-column>
-		<e-column field='deaths' headerText='deaths' textAlign='Right' width=100 format="N0"></e-column>
-		<e-column field='deathsPerPop' headerText='perPop' textAlign='Center' width=90></e-column>
-		<!-- <e-column field='recovered' headerText='recovered' textAlign='Right' width=90 format=""></e-column> -->
-	</e-columns>
-	<e-aggregates>
-		<e-aggregate>
-			<e-columns>
-				<e-column field="confirmed" type="sum" format="N0">
-					<ng-template #footerTemplate let-data>Sum: {{data.sum}}</ng-template>
-				</e-column>
-				<e-column field="deaths" type="sum" format="N0">
-					<ng-template #footerTemplate let-data>Sum: {{data.sum}}</ng-template>
-				</e-column>
-				<!--                 <e-column field="deathsPerPop" type="min">
+						<e-column field='symbol' headerText='symb.' textAlign='Center' width=90 [visible]='false'>
+						</e-column>
+						<e-column field='continent' headerText='Kontinent' textAlign='Right' width=120></e-column>
+						<e-column field='countryname' headerText='Land' textAlign='Right' width=120></e-column>
+						<e-column field='population' headerText='Population' textAlign='Right' width=90 format="N0"
+							[visible]='false'></e-column>
+						<e-column field='confirmed' headerText='confirmed' textAlign='Right' width=110 format="N0">
+						</e-column>
+						<e-column field='confirmedPerPop' headerText='perPop' textAlign='Center' width=90></e-column>
+						<e-column field='deaths' headerText='deaths' textAlign='Right' width=100 format="N0"></e-column>
+						<e-column field='deathsPerPop' headerText='perPop' textAlign='Center' width=90></e-column>
+						<!-- <e-column field='recovered' headerText='recovered' textAlign='Right' width=90 format=""></e-column> -->
+					</e-columns>
+					<e-aggregates>
+						<e-aggregate>
+							<e-columns>
+								<e-column field="confirmed" type="sum" format="N0">
+									<ng-template #footerTemplate let-data>Sum: {{data.sum}}</ng-template>
+								</e-column>
+								<e-column field="deaths" type="sum" format="N0">
+									<ng-template #footerTemplate let-data>Sum: {{data.sum}}</ng-template>
+								</e-column>
+								<!--                 <e-column field="deathsPerPop" type="min">
                     <ng-template #footerTemplate let-data>Min: {{data.min}}</ng-template>
                 </e-column>
                 <e-column field="deathsPerPop" type="max">
                     <ng-template #footerTemplate let-data>Max: {{data.max}}</ng-template>
                 </e-column> -->
-				<e-column field="deathsPerPop" type="average" format="N0">
-					<ng-template #footerTemplate let-data>Average: {{data.average}}</ng-template>
-				</e-column>
-				<!--                 <e-column field="confirmedPerPop" type="min">
+								<e-column field="deathsPerPop" type="average" format="N0">
+									<ng-template #footerTemplate let-data>Average: {{data.average}}</ng-template>
+								</e-column>
+								<!--                 <e-column field="confirmedPerPop" type="min">
                     <ng-template #footerTemplate let-data>Min: {{data.min}}</ng-template>
                 </e-column>
                 <e-column field="confirmedPerPop" type="max">
                     <ng-template #footerTemplate let-data>Max: {{data.max}}</ng-template>
                 </e-column> -->
-				<e-column field="confirmedPerPop" type="average" format="N0">
-					<ng-template #footerTemplate let-data>Average: {{data.average}}</ng-template>
-				</e-column>
-			</e-columns>
-		</e-aggregate>
-	</e-aggregates>
-</ejs-grid>
+								<e-column field="confirmedPerPop" type="average" format="N0">
+									<ng-template #footerTemplate let-data>Average: {{data.average}}</ng-template>
+								</e-column>
+							</e-columns>
+						</e-aggregate>
+					</e-aggregates>
+				</ejs-grid>
+			</ng-template>
+		</e-tabitem>
+
+		<e-tabitem>
+			<ng-template #headerText>
+				<div>Europa</div>
+			</ng-template>
+			<ng-template #content>
+
+			</ng-template>
+		</e-tabitem>
+
+		<e-tabitem>
+			<ng-template #headerText>
+				<div>Deutschland</div>
+			</ng-template>
+			<ng-template #content>
+
+			</ng-template>
+		</e-tabitem>
+
+		<e-tabitem>
+			<ng-template #headerText>
+				<div>NRW</div>
+			</ng-template>
+			<ng-template #content>
+
+			</ng-template>
+		</e-tabitem>
+
+		<e-tabitem>
+			<ng-template #headerText>
+				<div>Regional</div>
+			</ng-template>
+			<ng-template #content>
+
+			</ng-template>
+		</e-tabitem>
+
+		<e-tabitem>
+			<ng-template #headerText>
+				<div>Standorte</div>
+			</ng-template>
+			<ng-template #content>
+
+			</ng-template>
+		</e-tabitem>
+	</e-tabitems>
+</ejs-tab>
+
 
 <div class="container">
 	<form>

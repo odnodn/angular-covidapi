@@ -10,10 +10,10 @@ import { Covid19ApiService } from './covid19-api.service';
 import { GridModule } from '@syncfusion/ej2-angular-grids';
 import { PageService, SortService, FilterService, GroupService, AggregateService, ResizeService, ColumnChooserService,
         ToolbarService, ExcelExportService  } from '@syncfusion/ej2-angular-grids';
-import { ToolbarModule } from '@syncfusion/ej2-angular-navigations';
+import { ToolbarModule, TabModule } from '@syncfusion/ej2-angular-navigations';
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, HttpClientModule, GridModule, ToolbarModule ],
+  imports:      [ BrowserModule, FormsModule, HttpClientModule, GridModule, ToolbarModule, TabModule ],
   declarations: [ AppComponent, HelloComponent ],
   bootstrap:    [ AppComponent ],
   providers: [Covid19ApiService, 
