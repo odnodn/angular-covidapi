@@ -103,7 +103,7 @@ export class AppComponent {
       }
     ];
     this.sortOptions = {
-      columns: [{ field: "deathsPerPop", direction: "Ascending" }]
+      columns: [{ field: "deathsPerPop", direction: "Descending" }]
     };
     // this.sortOptions = { columns: [{ field: 'deathsPerPop', direction: 'Ascending' }, { field: 'ShipCity', direction: 'Descending' }] };
 

@@ -18,10 +18,10 @@
                                 </div>
 			</ng-template>
 		</e-column> -->
-		<e-column field='symbol' headerText='symb.' textAlign='Center' width=90></e-column>
+		<e-column field='symbol' headerText='symb.' textAlign='Center' width=90 [visible]='false'></e-column>
 		<e-column field='continent' headerText='Kontinent' textAlign='Right' width=120></e-column>
 		<e-column field='countryname' headerText='Land' textAlign='Right' width=120></e-column>
-		<e-column field='population' headerText='Population' textAlign='Right' width=90 format="N0"></e-column>
+		<e-column field='population' headerText='Population' textAlign='Right' width=90 format="N0" [visible]='false'></e-column>
 		<e-column field='confirmed' headerText='confirmed' textAlign='Right' width=110 format="N0"></e-column>
 		<e-column field='confirmedPerPop' headerText='perPop' textAlign='Center' width=90></e-column>
 		<e-column field='deaths' headerText='deaths' textAlign='Right' width=100 format="N0"></e-column>
