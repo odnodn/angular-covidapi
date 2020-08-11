@@ -1,0 +1,76 @@
+<!-- 
+
+// Stationäre Aufnahme
+let columnMatchings: Map<string, string> = new Map([
+  ['Fallnummer',        'Patient_Fallnummer'],
+  ['Vorname',           'Patient_Vorname'],
+  ['Nachname',          'Patient_Nachname'],
+  ['Anlegedatum',       'Patient_Aufnahmedatum'],
+  ['Text',              'Patient_Medikation'],
+  ['dosis',             'Patient_TODO'],
+  ['Diagnose',          'Patient_Diagnosen'],
+  ['NoFormatDiagnose',  'Patient_DiagnosenUnformatiert'],
+  ['txtanamnese',       'Patient_Anamnese'],
+  ['txtVorerkrankungen','Patient_Vorerkrankungen'],
+  ['txtVoroperationen', 'Patient_Voroperationen'],
+  ['txtBefund',         'Patient_KoerperlicherUntersuchungsbefund'],
+  ['txtekg1',           'Patient_EKGBefund'],
+  ['txtr_ntgen',        'Patient_BildgebungBefund'],
+  ['txtprocedere',      'Patient_Procedere'],
+  ['txttherapie',       'Patient_Therapie'],
+]);
+
+-->
+
+<div id="container" flex-layout:row>
+	<div>
+		Fallnummer: {{Patient_Fallnummer}}
+	</div>
+
+  <div>
+		Vorname: {{Patient_Vorname}}
+	</div>
+
+  <div>
+		Nachname: {{Patient_Nachname}}
+	</div>
+  <div>
+		Aufnahmedatum: {{Patient_Aufnahmedatum}}
+	</div>
+  <div>
+		Medikation: {{Patient_Medikation}}
+	</div>
+  <div>
+		{{Patient_TODO}}
+	</div>
+  <div>
+		Diagnosen: {{Patient_Diagnosen}}
+	</div>
+  <div>
+		DiagnosenUnformatiert: {{Patient_DiagnosenUnformatiert}}
+	</div>
+  <div>
+		Anamnese: {{Patient_Anamnese}}
+	</div>
+  <div>
+		Vorerkrankungen: {{Patient_Vorerkrankungen}}
+	</div>
+  <div>
+		Voroperationen: {{Patient_Voroperationen}}
+	</div>
+  <div>
+		KoerperlicherUntersuchungsbefund: {{Patient_KoerperlicherUntersuchungsbefund}}
+	</div>
+  <div>
+		EKGBefund: {{Patient_EKGBefund}}
+	</div>
+  <div>
+		BildgebungBefund: {{Patient_BildgebungBefund}}
+	</div>
+  <div>
+		Procedere: {{Patient_Procedere}}
+	</div>
+  <div>
+		Therapie: {{Patient_Therapie}}
+	</div>
+</div>

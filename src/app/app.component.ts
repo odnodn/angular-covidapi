@@ -57,6 +57,8 @@ export class AppComponent {
   covidResults$: Observable<covidData>;
   covidResults: any;
 
+  de_lastest: any ;
+
   // grid
   // aggregates: sum, average, min, max, count, trueCount, FalseCount
   // public groupOptions: GroupSettingsModel = { showDropArea: true, columns: ['deathsPerPop'] };
@@ -152,6 +154,10 @@ export class AppComponent {
       this.rebuild(response.result);
       // console.log(JSON.stringify(this.covidResults$));
       //console.log(this.covidResults);
+    });
+
+    this.covidService.getLatestGermany().subscribe(response => {
+      this.de_latest = response.result;
     });
   }
 

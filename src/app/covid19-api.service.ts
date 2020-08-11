@@ -41,8 +41,38 @@ export class Covid19ApiService {
   getLatest(): Observable<any> {
     const endpoint: string = 'https://covidapi.info/api/v1/global/latest';
     return this.http.get(endpoint)
-      .pipe((response) => response)
+      .pipe((response) => response);
 
+  }
+
+  getLatestGermany(): Observable<any> {
+    const endpoint: string = 'https://covidapi.info/api/v1/country/DEU/latest';
+    return this.http.get(endpoint)
+      .pipe((response => response));
+  }
+
+  getLatestAndDayeforeGermany(): Observable<any> {
+    const endpoint: string = '';
+    return this.http.get(endpoint)
+      .pipe (response => response);
+  }
+
+  getDateRangeGermany(): Observable<any> {
+    const endpoint: string = '';
+    return this.http.get(endpoint)
+      .pipe(result => result);
+  }
+
+  getLatestByCountry(countryIso3:string): Observable<any> {
+    const endpoint: string = `https://covidapi.info/api/v1/country/${countryIso3}/latest`;
+    return this.http.get(endpoint)
+      .pipe(result => result);
+  }
+
+  getByCountryAndDateRange(countryIso3:string, startDate: Date, endDate: Date): Observable<any> {
+    const endpoint: string = `https://covidapi.info/api/v1/country/${countryIso3}/timeseries/${startDate}/${endDate}`;
+    return this.http.get(endpoint)
+      .pipe(result => result);
   }
 
 }
