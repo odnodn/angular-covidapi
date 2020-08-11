@@ -1,17 +1,57 @@
-<hello name="{{ name }}"></hello>
+<h1>COVID19</h1>
 <p>
-  Start editing to see some magic happen :)
+  Letzter Stand: 
 </p>
 
 
-<ejs-grid [dataSource]='countryData' [allowPaging]="false" [allowSorting]="true"
-               [allowFiltering]="true" [allowGrouping]="true" [pageSettings]='pageSettings' allowResizing="true">
-<!--                 <e-columns>
-                    <e-column field='OrderID' headerText='Order ID' textAlign='Right' width=90></e-column>
-                    <e-column field='CustomerID' headerText='Customer ID' width=120></e-column>
-                    <e-column field='Freight' headerText='Freight' textAlign='Right' format='C2' width=90></e-column>
-                    <e-column field='OrderDate' headerText='Order Date' textAlign='Right' format='yMd' width=120></e-column>
-                </e-columns> -->
+<ejs-grid id='Grid' [dataSource]='countryData' 
+  [allowPaging]="false" [allowSorting]="true"
+  [allowFiltering]="true" [allowGrouping]="true" allowResizing="true"
+  [pageSettings]='pageSettings'  [groupSettings]="groupOptions" [toolbar]='toolbarOptions'
+  [allowExcelExport]='true' (toolbarClick)='toolbarClick($event)'
+  allowResizing="true"
+  height=500>
+    <e-columns>
+      <e-column field='symbol' headerText='symb.' textAlign='Center' width=90></e-column>
+      <e-column field='continent' headerText='Kontinent' textAlign='Right' width=150></e-column>
+      <e-column field='countryname' headerText='Land' textAlign='Right' width=180></e-column>
+      <e-column field='population' headerText='Population' textAlign='Right' width=90></e-column>
+      <e-column field='confirmed' headerText='confirmed' textAlign='Right' width=110></e-column>
+      <e-column field='confirmedPerPop' headerText='' textAlign='Center' width=90></e-column>
+      <e-column field='deaths' headerText='deaths' textAlign='Right' width=100></e-column>
+      <e-column field='deathsPerPop' headerText='' textAlign='Center' width=90></e-column>
+      <!-- <e-column field='recovered' headerText='recovered' textAlign='Right' width=90 format=""></e-column> -->
+    </e-columns>  
+        <e-aggregates>
+        <e-aggregate>
+            <e-columns>
+                <e-column field="confirmed" type="sum">
+                    <ng-template #footerTemplate let-data>Sum: {{data.sum}}</ng-template>
+                </e-column>
+                <e-column field="deaths" type="sum">
+                    <ng-template #footerTemplate let-data>Sum: {{data.sum}}</ng-template>
+                </e-column>
+                <e-column field="deathsPerPop" type="min">
+                    <ng-template #footerTemplate let-data>Min: {{data.min}}</ng-template>
+                </e-column>
+                <e-column field="deathsPerPop" type="max">
+                    <ng-template #footerTemplate let-data>Max: {{data.max}}</ng-template>
+                </e-column>
+                <e-column field="deathsPerPop" type="average">
+                    <ng-template #footerTemplate let-data>Average: {{data.average}}</ng-template>
+                </e-column>
+                <e-column field="confirmedPerPop" type="min">
+                    <ng-template #footerTemplate let-data>Min: {{data.min}}</ng-template>
+                </e-column>
+                <e-column field="confirmedPerPop" type="max">
+                    <ng-template #footerTemplate let-data>Max: {{data.max}}</ng-template>
+                </e-column>
+                <e-column field="confirmedPerPop" type="average">
+                    <ng-template #footerTemplate let-data>Average: {{data.average}}</ng-template>
+                </e-column>
+            </e-columns>
+        </e-aggregate>
+    </e-aggregates>         
  </ejs-grid>
 
 <div class="container">

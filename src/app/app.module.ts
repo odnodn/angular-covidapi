@@ -8,7 +8,8 @@ import { HttpClientModule } from "@angular/common/http";
 import { Covid19ApiService } from './covid19-api.service';
 
 import { GridModule } from '@syncfusion/ej2-angular-grids';
-import { PageService, SortService, FilterService, GroupService } from '@syncfusion/ej2-angular-grids';
+import { PageService, SortService, FilterService, GroupService, AggregateService,
+        ToolbarService, ExcelExportService  } from '@syncfusion/ej2-angular-grids';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpClientModule, GridModule ],
@@ -18,6 +19,8 @@ import { PageService, SortService, FilterService, GroupService } from '@syncfusi
                 PageService,
                 SortService,
                 FilterService,
-                GroupService]
+                GroupService,
+                AggregateService,
+                ToolbarService, ExcelExportService ]
 })
 export class AppModule { }

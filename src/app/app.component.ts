@@ -1,4 +1,4 @@
-import { Component, VERSION } from "@angular/core";
+import { Component, ViewChild, VERSION } from "@angular/core";
 import { Covid19ApiService } from "./covid19-api.service";
 import { Observable, Subject } from "rxjs";
 import {
@@ -8,6 +8,15 @@ import {
   distinctUntilChanged
 } from "rxjs/operators";
 
+// syncfusion
+import {
+  GridComponent,
+  ToolbarItems,
+  GroupSettingsModel
+} from "@syncfusion/ej2-angular-grids";
+import { ClickEventArgs } from "@syncfusion/ej2-angular-navigations";
+
+// data
 import { iso } from "./data/iso-3166";
 import cities from "./data/countries.json";
 import populations from "./data/country-by-population.json";
@@ -39,12 +48,19 @@ export class Country {
 export class AppComponent {
   name = "Angular " + VERSION.major;
 
+  // data
   loading: boolean = false;
   countries$: Observable<Country[]>;
   private searchTerms = new Subject<string>();
 
   covidResults$: Observable<covidData>;
   covidResults: any;
+
+  // grid
+  // aggregates: sum, average, min, max, count, trueCount, FalseCount
+  // public groupOptions: GroupSettingsModel = { showDropArea: true, columns: ['deathsPerPop'] };
+  public toolbarOptions: ToolbarItems[];
+  @ViewChild("grid") public grid: GridComponent;
 
   constructor(private covidService: Covid19ApiService) {}
 
@@ -60,6 +76,27 @@ export class AppComponent {
       switchMap((term: string) => this.covidService.searchCovid(term)),
       tap(_ => this.loading = false)
     ) */
+
+    // grid
+    this.toolbarOptions = [
+      'ExcelExport',
+      'CsvExport',
+      'PdfExport',
+      {
+        text: "Expand All",
+        tooltipText: "Expand All",
+        prefixIcon: "e-expand",
+        id: "expandall",
+        align: "Right"
+      },
+      {
+        text: "Collapse All",
+        tooltipText: "collection All",
+        prefixIcon: "e-collapse",
+        id: "collapseall",
+        align: "Right"
+      }
+    ];
 
     console.log(populations[0]);
     console.log(cities[0]);
@@ -151,32 +188,38 @@ export class AppComponent {
   getContinent(countryNameAlpha3: string) {
     if (!countryNameAlpha3) return "";
     var continentlookup, continent;
-    continentlookup = cities.find( item => item.alpha_3 === countryNameAlpha3 );
+    continentlookup = cities.find(item => item.alpha_3 === countryNameAlpha3);
     if (continentlookup) {
       continent = continentlookup.continent;
 
-      switch (continent){
+      switch (continent) {
         case "EU":
-          continent = "Europa"; break;
+          continent = "Europa";
+          break;
         case "NA":
-          continent = "Nordamerika"; break;
+          continent = "Nordamerika";
+          break;
         case "SA":
-          continent = "Südamerika"; break;
+          continent = "Südamerika";
+          break;
         case "AS":
-          continent = "Asien"; break;
+          continent = "Asien";
+          break;
         case "AF":
-          continent = "Afrika"; break;
+          continent = "Afrika";
+          break;
         case "OC":
-          continent = "O"; break;
+          continent = "O";
+          break;
       }
 
       return continent;
+    } else {
+      return "";
     }
-    else { return "";}
-    
   }
 
-  getPopulation(countryName: string) {
+  getPopulation(countryName: string): number {
     var population;
     var pop = populations.find(
       country => country.country.toUpperCase() === countryName.toUpperCase()
@@ -184,7 +227,7 @@ export class AppComponent {
     if (pop) {
       population = pop.population;
     } else {
-      population = "0";
+      population = 0;
     }
     return population;
   }
@@ -207,6 +250,30 @@ export class AppComponent {
 
   getStats(confirmed: number, deaths: number, population: number): [] {
     return [];
+  }
+
+  // ToDo
+  // grid
+  toolbarClick(args: ClickEventArgs): void {
+    if (args.item.id === "Grid_excelexport") {
+      // 'Grid_excelexport' -> Grid component id + _ + toolbar item name
+      this.grid.excelExport();
+    }
+    if (args.item.id === "expandall") {
+      this.grid.groupModule.expandAll();
+    }
+
+    if (args.item.id === "collapseall") {
+      this.grid.groupModule.collapseAll();
+    }
+  }
+
+  enable() {
+    this.grid.toolbarModule.enableItems(["Grid_Collapse", "Grid_Expand"], true); // Enable toolbar items.
+  }
+
+  disable() {
+    this.grid.toolbarModule.enableItems(  ["Grid_Collapse", "Grid_Expand"], false ); // Disable toolbar items.
   }
 }
 
