@@ -87,19 +87,19 @@ export class AppComponent {
     // console.log(Object.getOwnPropertyNames(result) );
     // console.log(result[Object.getOwnPropertyNames(result)].confirmed)
 
-    var countryName = Object.getOwnPropertyNames(result)[0];                // [ "USA": {confirmed: , deaths: , recovered: }] -> USA
-    var confirmed = result[Object.getOwnPropertyNames(result)].confirmed;   // -> confirmed
-    var deaths = result[Object.getOwnPropertyNames(result)].deaths;         // -> deaths
-    var recovered = result[Object.getOwnPropertyNames(result)].recovered;   // -> recovered 
+    var countryName = Object.getOwnPropertyNames(result)[0]; // [ "USA": {confirmed: , deaths: , recovered: }] -> USA
+    var confirmed = result[Object.getOwnPropertyNames(result)].confirmed; // -> confirmed
+    var deaths = result[Object.getOwnPropertyNames(result)].deaths; // -> deaths
+    var recovered = result[Object.getOwnPropertyNames(result)].recovered; // -> recovered
     // console.log(iso.whereAlpha3(countryName))
     //country.countryname = Object.getOwnPropertyNames(result)[0];
     //country.countryname = iso.whereAlpha3(countryName).country;       // TODO
     var countryLookup = this.getCountry(countryName);
 
-    var   population      = this.getPopulation(countryLookup) , 
-          confirmedPerPop = this.getConfirmedPerPop(confirmed, population), 
-          deathsPerPop    = this.getDeathsPerPop(deaths, population);
-/*     var pop = populations.find(
+    var population = this.getPopulation(countryLookup),
+      confirmedPerPop = this.getConfirmedPerPop(confirmed, population),
+      deathsPerPop = this.getDeathsPerPop(deaths, population);
+    /*     var pop = populations.find(
       country => country.country.toUpperCase() === countryLookup.toUpperCase()
     );
     if (pop) {
@@ -167,7 +167,7 @@ export class AppComponent {
     return population;
   }
 
-  getConfirmedPerPop(confirmed: number, population: number): number{
+  getConfirmedPerPop(confirmed: number, population: number): number {
     if (population === 0) return 0;
 
     var confirmedPerPop;
@@ -175,7 +175,7 @@ export class AppComponent {
     return confirmedPerPop;
   }
 
-  getDeathsPerPop(deaths: number, population: number): number{
+  getDeathsPerPop(deaths: number, population: number): number {
     if (population === 0) return 0;
 
     var deathsPerPop;
@@ -183,7 +183,7 @@ export class AppComponent {
     return deathsPerPop;
   }
 
-  getStats(confirmed: number, deaths: number, population: number ):[] {
+  getStats(confirmed: number, deaths: number, population: number): [] {
     return [];
   }
 }
