@@ -18,15 +18,17 @@ import {
 import { ClickEventArgs } from "@syncfusion/ej2-angular-navigations";
 
 // csv
-import { Papa } from 'ngx-papaparse';
+import { Papa } from "ngx-papaparse";
 
 // data
 import { iso } from "./data/iso-3166";
 import cities from "./data/countries.json";
 import populations from "./data/country-by-population.json";
 
-import { csv1 } from './test';
-import { csv2 } from './test';
+import { csv1 } from "./test";
+import { csv2 } from "./test";
+
+import { inhalationswirkstoffe } from "./data/inhalationswirkstoffe";
 
 // count 188 date 2020-08-09 result Array[188]- confirmed deaths recovered
 export class covidData {
@@ -63,8 +65,10 @@ export class AppComponent {
   covidResults$: Observable<covidData>;
   covidResults: any;
 
-  de_lastest: any ;
+  de_lastest: any;
   covidGermany: any;
+
+  inhalationswirkstoffe = inhalationswirkstoffe;
 
   // grid
   // aggregates: sum, average, min, max, count, trueCount, FalseCount
@@ -74,6 +78,14 @@ export class AppComponent {
   public sortOptions: object;
   public confirmedColumns: ColumnModel[];
   public deathsColumns: ColumnModel[];
+
+  public praeparatColumns: ColumnModel[];
+  public frequencyColumns: ColumnModel[];
+  public combiColumns: ColumnModel[];
+  public intervallColumns: ColumnModel[];
+  public klasseColumns: ColumnModel[];
+  public wirkstoffColumns: ColumnModel[];
+  public devicetypColumns: ColumnModel[];
 
   constructor(private covidService: Covid19ApiService, private papa: Papa) {}
 
@@ -95,7 +107,7 @@ export class AppComponent {
       "ExcelExport",
       "CsvExport",
       "PdfExport",
-      "ColumnChooser",    // grid: [showColumnChooser]= 'true' , column: [showInColumnChooser]='false'
+      "ColumnChooser", // grid: [showColumnChooser]= 'true' , column: [showInColumnChooser]='false'
       {
         text: "Expand All",
         tooltipText: "Expand All",
@@ -131,7 +143,6 @@ export class AppComponent {
         field: "confirmedPerPop",
         headerText: "perPop",
         width: 100,
-        format: "N0",
         textAlign: "Right",
         minWidth: 10
       }
@@ -149,6 +160,195 @@ export class AppComponent {
         headerText: "perPop",
         width: 120,
         minWidth: 10
+      }
+    ];
+
+    //
+    // Präparat		          1/2/3x	Intervall	  Klasse			            Wirkstoff		    Deviceart
+    // Handelsname Device	  Typ	    12	24	    LAMA LABA SAMA SABA ICS	LAMA LABA ICS		pMDI	PDI	Respi,at
+    // Mono  Duo Tripple
+    // alt: https://stackblitz.com/edit/js-jdabp7?file=index.js
+
+    this.praeparatColumns = [
+      {
+        field: "Handelsname",
+        headerText: "Handelsname",
+        width: 100,
+        textAlign: "Right",
+        minWidth: 10
+      },
+      {
+        field: "Device",
+        headerText: "Device",
+        width: 90,
+        textAlign: "Right",
+        minWidth: 10
+      },
+      {
+        field: "Firma",
+        headerText: "Firma",
+        width: 50,
+        textAlign: "Right",
+        minWidth: 10
+      }
+    ];
+    this.frequencyColumns = [
+      {
+        field: "Typ",
+        headerText: "Typ",
+        width: 5,
+        textAlign: "Center",
+        minWidth: 5,
+        type: "boolean",
+        displayAsCheckBox: "true"
+      }
+    ];
+    this.combiColumns = [
+      {
+        field: "Mono",
+        headerText: "Mono",
+        width: 30,
+        textAlign: "Center",
+        minWidth: 5,
+        type: "boolean",
+        displayAsCheckBox: "true"
+      },
+      {
+        field: "Duo",
+        headerText: "Duo",
+        width: 30,
+        textAlign: "Center",
+        minWidth: 5,
+        type: "boolean",
+        displayAsCheckBox: "true"
+      },
+      {
+        field: "Triple",
+        headerText: "Triple",
+        width: 30,
+        textAlign: "Center",
+        minWidth: 5,
+        type: "boolean",
+        displayAsCheckBox: "true"
+      }
+    ];
+    this.intervallColumns = [
+      {
+        field: "12h",
+        headerText: "12h",
+        width: 30,
+        textAlign: "Center",
+        minWidth: 15,
+        type: "boolean",
+        displayAsCheckBox: "true"
+      },
+      {
+        field: "24h",
+        headerText: "24h",
+        width: 30,
+        textAlign: "Center",
+        minWidth: 5,
+        type: "boolean",
+        displayAsCheckBox: "true"
+      }
+    ];
+    this.klasseColumns = [
+      {
+        field: "LAMA",
+        headerText: "LAMA",
+        width: 30,
+        textAlign: "Center",
+        minWidth: 5,
+        type: "boolean",
+        displayAsCheckBox: "true"
+      },
+      {
+        field: "LABA",
+        headerText: "LABA",
+        width: 30,
+        textAlign: "Center",
+        minWidth: 5,
+        type: "boolean",
+        displayAsCheckBox: "true"
+      },
+      {
+        field: "SABA",
+        headerText: "SABA",
+        width: 30,
+        textAlign: "Center",
+        minWidth: 5,
+        type: "boolean",
+        displayAsCheckBox: "true"
+      },
+      {
+        field: "SAMA",
+        headerText: "SAMA",
+        width: 30,
+        textAlign: "Center",
+        minWidth: 5,
+        type: "boolean",
+        displayAsCheckBox: "true"
+      },
+      {
+        field: "ICS",
+        headerText: "ICS",
+        width: 30,
+        textAlign: "Center",
+        minWidth: 5,
+        type: "boolean",
+        displayAsCheckBox: "true"
+      }
+    ];
+    this.wirkstoffColumns = [
+      {
+        field: "WirkstoffMA",
+        headerText: "MA",
+        width: 100,
+        textAlign: "Center",
+        minWidth: 10
+      },
+      {
+        field: "WirkstoffBA",
+        headerText: "BA",
+        width: 100,
+        textAlign: "Center",
+        minWidth: 10
+      },
+      {
+        field: "WirkstoffICS",
+        headerText: "ICS",
+        width: 100,
+        textAlign: "Center",
+        minWidth: 10
+      }
+    ];
+    this.devicetypColumns = [
+      {
+        field: "pMDI",
+        headerText: "pMDI",
+        width: 30,
+        textAlign: "Center",
+        minWidth: 5,
+        type: "boolean",
+        displayAsCheckBox: "true"
+      },
+      {
+        field: "PDI",
+        headerText: "PDI",
+        width: 30,
+        textAlign: "Center",
+        minWidth: 5,
+        type: "boolean",
+        displayAsCheckBox: "true"
+      },
+      {
+        field: "Resp",
+        headerText: "Resp",
+        width: 30,
+        textAlign: "Center",
+        minWidth: 5,
+        type: "boolean",
+        displayAsCheckBox: "true"
       }
     ];
 
@@ -170,12 +370,12 @@ export class AppComponent {
 
     // MAP
 
-/*     this.covidService.getByCountry('DEU').subscribe(response => {
+    /*     this.covidService.getByCountry('DEU').subscribe(response => {
       this.covidGermany = response.result;
       console.log(response.result);
     }); */
 
-    this.parseCsv(csv1);    
+    this.parseCsv(csv1);
   }
 
   countryData: Country[];
@@ -356,58 +556,58 @@ export class AppComponent {
     ); // Disable toolbar items.
   }
 
-
-Patient_Fallnummer: any;
-Patient_Vorname: any;
-Patient_Nachname: any;
-Patient_Aufnahmedatum: any;
-Patient_Medikation: any;
-Patient_TODO: any;
-Patient_Diagnosen: any;
-Patient_DiagnosenUnformatiert: any;
-Patient_Anamnese: any;
-Patient_Vorerkrankungen: any;
-Patient_Voroperationen: any;
-Patient_KoerperlicherUntersuchungsbefund: any;
-Patient_EKGBefund: any;
-Patient_BildgebungBefund: any;
-Patient_Procedere: any;
-Patient_Therapie: any;
+  Patient_Fallnummer: any;
+  Patient_Vorname: any;
+  Patient_Nachname: any;
+  Patient_Aufnahmedatum: any;
+  Patient_Medikation: any;
+  Patient_TODO: any;
+  Patient_Diagnosen: any;
+  Patient_DiagnosenUnformatiert: any;
+  Patient_Anamnese: any;
+  Patient_Vorerkrankungen: any;
+  Patient_Voroperationen: any;
+  Patient_KoerperlicherUntersuchungsbefund: any;
+  Patient_EKGBefund: any;
+  Patient_BildgebungBefund: any;
+  Patient_Procedere: any;
+  Patient_Therapie: any;
 
   // csv
-  parseCsv(csv:string){
-    this.papa.parse(csv,{
-            header: true,
-            delimiter: ';',
-            // newline	The newline sequence. Leave blank to auto-detect. Must be one of \r, \n, or \r\n.
-            // quoteChar	The character used to quote fields. The quoting of all fields is not mandatory. Any field which is not quoted will correctly read.
-            // escapeChar	The character used to escape the quote character within a field. If not set, this option will default to the value of quoteChar, meaning that the default escaping of quote character within a quoted field is using the quote character two times. (e.g. "column with ""quotes"" in text")
+  parseCsv(csv: string) {
+    this.papa.parse(csv1, {
+      header: true,
+      delimiter: ";",
+      // newline	The newline sequence. Leave blank to auto-detect. Must be one of \r, \n, or \r\n.
+      // quoteChar	The character used to quote fields. The quoting of all fields is not mandatory. Any field which is not quoted will correctly read.
+      // escapeChar	The character used to escape the quote character within a field. If not set, this option will default to the value of quoteChar, meaning that the default escaping of quote character within a quoted field is using the quote character two times. (e.g. "column with ""quotes"" in text")
 
-            complete: (result) => {
-                console.log('Parsed: ', result);
-                console.log(result.data);
-                
-                this.Patient_Fallnummer = result.data[0].Fallnummer;
-                this.Patient_Vorname = result.data[0].Vorname;
-                this.Patient_Nachname = result.data[0].Nachname;
-                this.Patient_Aufnahmedatum = result.data[0].Anlegedatum;
-                this.Patient_Medikation = result.data[0].Text;
-                this.Patient_TODO = result.data[0].dosis;
-                this.Patient_Diagnosen = result.data[0].Diagnose;
-                this.Patient_DiagnosenUnformatiert = result.data[0].NoFormatDiagnose;
-                this.Patient_Anamnese = result.data[0].txtanamnese;
-                this.Patient_Vorerkrankungen = result.data[0].txtVorerkrankungen;
-                this.Patient_Voroperationen = result.data[0].txtVoroperationen;
-                this.Patient_KoerperlicherUntersuchungsbefund = result.data[0].txtbefund;
-                this.Patient_EKGBefund = result.data[0].txtekg1;
-                this.Patient_BildgebungBefund = result.data[0].txtr_ntgen;
-                this.Patient_Procedere = result.data[0].txtprocedere;
-                this.Patient_Therapie = result.data[0].txttherapie;
+      complete: result => {
+        console.log("Parsed: ", result);
+        console.log(result.data);
 
-                console.log(this.Patient_Therapie);
-                console.log(this.Patient_KoerperlicherUntersuchungsbefund);
-            }
-        });
+        this.Patient_Fallnummer = result.data[0].Fallnummer;
+        this.Patient_Vorname = result.data[0].Vorname;
+        this.Patient_Nachname = result.data[0].Nachname;
+        this.Patient_Aufnahmedatum = result.data[0].Anlegedatum;
+        this.Patient_Medikation = result.data[0].Text;
+        this.Patient_TODO = result.data[0].dosis;
+        this.Patient_Diagnosen = result.data[0].Diagnose;
+        this.Patient_DiagnosenUnformatiert = result.data[0].NoFormatDiagnose;
+        this.Patient_Anamnese = result.data[0].txtanamnese;
+        this.Patient_Vorerkrankungen = result.data[0].txtVorerkrankungen;
+        this.Patient_Voroperationen = result.data[0].txtVoroperationen;
+        this.Patient_KoerperlicherUntersuchungsbefund =
+          result.data[0].txtbefund;
+        this.Patient_EKGBefund = result.data[0].txtekg1;
+        this.Patient_BildgebungBefund = result.data[0].txtr_ntgen;
+        this.Patient_Procedere = result.data[0].txtprocedere;
+        this.Patient_Therapie = result.data[0].txttherapie;
+
+        console.log(this.Patient_Therapie);
+        console.log(this.Patient_KoerperlicherUntersuchungsbefund);
+      }
+    });
   }
 }
 

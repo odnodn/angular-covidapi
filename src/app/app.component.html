@@ -127,6 +127,28 @@
 					[groupSettings]="groupOptions" height=500></ejs-grid>
 			</ng-template>
 		</e-tabitem>
+
+		<e-tabitem>
+			<ng-template #headerText>
+				<div>Inhalativa</div>
+			</ng-template>
+			<ng-template #content>
+        <ejs-grid [dataSource]="inhalationswirkstoffe" [allowPaging]="false" [allowSorting]="true"
+					[allowFiltering]="true" [allowGrouping]="true" allowResizing="true" [allowReordering]='true'
+					[showColumnChooser]='true'>
+          <e-columns>
+            <e-column headerText='Präparate' [columns]='praeparatColumns'></e-column>
+            <e-column headerText='Frequenz' [columns]='frequencyColumns'></e-column>
+            <e-column headerText='Kombination' [columns]='combiColumns' [visible]='false'></e-column>
+            <e-column headerText='Intervall' [columns]='intervallColumns'></e-column>
+            <e-column headerText='Klasse' [columns]='klasseColumns'></e-column>
+            <e-column headerText='Wirkstoff' [columns]='wirkstoffColumns'></e-column>
+            <e-column headerText='Devicetyp' [columns]='devicetypColumns'></e-column>
+          </e-columns>
+          </ejs-grid>
+			</ng-template>
+		</e-tabitem>
+
 	</e-tabitems>
 </ejs-tab>
 
@@ -140,7 +162,7 @@
 		<e-tabitems>
 			<e-tabitem>
 				<ng-template #headerText>
-					<div>Auswerungsübersicht</div>
+					<div>Auswertungsübersicht</div>
 				</ng-template>
 				<ng-template #content>
 					<div id="container" class="table">
@@ -162,7 +184,7 @@
 								<div  class="table-cell"><strong>Medikation:</strong></div><div  class="table-cell"> {{Patient_Medikation}}</div>
 						</div>
 						<div class="table-row">
-							<div  class="table-cell">asasaa</div><div  class="table-cell">{{Patient_TODO}}</div>
+							<div  class="table-cell">?</div><div  class="table-cell">{{Patient_TODO}}</div>
 						</div>
 						<div class="table-row">
 								<div  class="table-cell"><strong>Diagnosen:</strong></div><div  class="table-cell"> {{Patient_Diagnosen}}</div>
@@ -180,7 +202,7 @@
 								<div  class="table-cell"><strong>Voroperationen:</strong></div><div  class="table-cell"> {{Patient_Voroperationen}}</div>
 						</div>
 						<div class="table-row">
-								<div  class="table-cell"><strong>KoerperlicherUntersuchungsbefund:</strong></div><div  class="table-cell"> {{Patient_KoerperlicherUntersuchungsbefund}}</div>
+								<div  class="table-cell"><strong>Körperlicher Untersuchungsbefund:</strong></div><div  class="table-cell"> {{Patient_KoerperlicherUntersuchungsbefund}}</div>
 						</div>
 						<div class="table-row">
 								<div  class="table-cell"><strong>EKGBefund:</strong></div><div  class="table-cell"> {{Patient_EKGBefund}}</div>
