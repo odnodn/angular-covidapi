@@ -28,6 +28,7 @@
     "@syncfusion/ej2-splitbuttons": "18.2.44",
     "@syncfusion/ej2-treegrid": "18.2.47",
     "country-json": "1.1.0",
+    "crypto-js": "^4.0.0",
     "ngx-papaparse": "4.0.4",
     "rxjs": "6.6.2",
     "tslib": "2.0.1",

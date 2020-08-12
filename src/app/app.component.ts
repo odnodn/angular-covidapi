@@ -8,6 +8,9 @@ import {
   distinctUntilChanged
 } from "rxjs/operators";
 
+// crypto-js
+import * as CryptoJS from "crypto-js";
+
 // syncfusion
 import {
   GridComponent,
@@ -70,6 +73,19 @@ export class AppComponent {
 
   inhalationswirkstoffe = inhalationswirkstoffe;
 
+  // crypto-js
+  plainText: string;
+  encryptText: string;
+  encPassword: string;
+  decPassword: string;
+  conversionEncryptOutput: string;
+  conversionDecryptOutput: string;
+
+  /**
+   *  COMPONENTS
+   *
+   */
+
   // grid
   // aggregates: sum, average, min, max, count, trueCount, FalseCount
   // public groupOptions: GroupSettingsModel = { showDropArea: true, columns: ['deathsPerPop'] };
@@ -97,7 +113,7 @@ export class AppComponent {
       Duration: 4,
       subtasks: [
         {
-          TaskID: 2, 
+          TaskID: 2,
           TaskName: "COVID-Labor",
           StartDate: new Date("04/02/2020"),
           Duration: 4,
@@ -126,7 +142,6 @@ export class AppComponent {
           Progress: 50,
           Indicators: [
             {
-
               date: "04/02/2020",
               iconClass:
                 "e-btn-icon e-notes-info e-icons e-icon-left e-gantt e-notes-info::before",
@@ -161,7 +176,7 @@ export class AppComponent {
               date: "04/11/2020",
               name: '<span style="color:red">EM</span>'
             }
-          ]          
+          ]
         }
       ]
     },
@@ -738,7 +753,20 @@ export class AppComponent {
       }
     });
   }
-}
+
+  // crypto
+    //method is used to encrypt and decrypt the text  
+  convertText(conversion:string) {  
+      if (conversion=="encrypt") {  
+        this.conversionEncryptOutput = CryptoJS.AES.encrypt(this.plainText.trim(), this.encPassword.trim()).toString();  
+      }  
+      else {  
+        this.conversionDecryptOutput = CryptoJS.AES.decrypt(this.encryptText.trim(), this.decPassword.trim()).toString(CryptoJS.enc.Utf8);  
+       
+    }  
+  }  
+}  
+
 
 /**
  * 
