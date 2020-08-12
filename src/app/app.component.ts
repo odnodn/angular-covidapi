@@ -91,63 +91,94 @@ export class AppComponent {
   public ganttData: object[] = [
     {
       TaskID: 1,
-      TaskName: "Project Initiation",
-      StartDate: new Date("04/02/2019"),
-      EndDate: new Date("04/21/2019"),
+      TaskName: "Patient A",
+      StartDate: new Date("04/02/2020"),
+      EndDate: new Date("04/21/2020"),
       subtasks: [
         {
-          TaskID: 2,
-          TaskName: "Identify Site location",
-          StartDate: new Date("04/02/2019"),
+          TaskID: 2, 
+          TaskName: "COVID-Labor",
+          StartDate: new Date("04/02/2020"),
           Duration: 4,
           Progress: 50,
           Indicators: [
             {
-              date: "04/08/2019",
+              date: "04/08/2020",
               iconClass:
                 "e-btn-icon e-notes-info e-icons e-icon-left e-gantt e-notes-info::before",
-              name: "Custom String",
+              name: "Labor",
               tooltip: "Follow up"
             },
             {
-              date: "04/11/2019",
+              date: "04/10/2020",
               iconClass:
                 "e-btn-icon e-notes-info e-icons e-icon-left e-gantt e-notes-info::before",
-              name: '<span style="color:red">String Template</span>'
+              name: '<span style="color:red">Labor</span>'
             }
           ]
         },
         {
           TaskID: 3,
-          TaskName: "Perform Soil test",
-          StartDate: new Date("04/02/2019"),
-          Duration: 4,
-          Progress: 50
+          TaskName: "PCR-Testungen",
+          StartDate: new Date("04/02/2020"),
+          Duration: 0,
+          Progress: 50,
+          Indicators: [
+            {
+
+              date: "04/02/2020",
+              iconClass:
+                "e-btn-icon e-notes-info e-icons e-icon-left e-gantt e-notes-info::before",
+              name: "1. PCR",
+              tooltip: "Follow up"
+            },
+            {
+              date: "04/10/2020",
+              iconClass:
+                "e-btn-icon e-notes-info e-icons e-icon-left e-gantt e-notes-info::before",
+              name: '<span style="color:red">2. PCR</span>'
+            }
+          ]
         },
         {
           TaskID: 4,
-          TaskName: "Soil test approval",
-          StartDate: new Date("04/02/2019"),
-          Duration: 4,
-          Progress: 50
+          TaskName: "Meldung Gesundheitsamt",
+          StartDate: new Date("04/02/2020"),
+          Duration: 0,
+          Progress: 50,
+          Indicators: [
+            {
+              date: "04/02/2020",
+              name: "VM",
+              tooltip: "Follow up"
+            },
+            {
+              date: "04/03/2020",
+              name: '<span style="color:red">PM</span>'
+            },
+            {
+              date: "04/11/2020",
+              name: '<span style="color:red">EM</span>'
+            }
+          ]          
         }
       ]
     },
     {
       TaskID: 5,
-      TaskName: "Project Estimation",
-      StartDate: new Date("04/02/2019"),
-      EndDate: new Date("04/21/2019"),
+      TaskName: "Patient B",
+      StartDate: new Date("04/02/2020"),
+      EndDate: new Date("04/21/2020"),
       subtasks: [
         {
           TaskID: 6,
-          TaskName: "Develop floor plan for estimation",
-          StartDate: new Date("04/04/2019"),
+          TaskName: "COVID-Labor",
+          StartDate: new Date("04/04/2020"),
           Duration: 3,
           Progress: 50,
           Indicators: [
             {
-              date: "04/10/2019",
+              date: "04/10/2020",
               iconClass:
                 "e-btn-icon e-notes-info e-icons e-icon-left e-gantt e-notes-info::before",
               name: "Indicator title",
@@ -157,15 +188,15 @@ export class AppComponent {
         },
         {
           TaskID: 7,
-          TaskName: "List materials",
-          StartDate: new Date("04/04/2019"),
+          TaskName: "PCR-Testungen",
+          StartDate: new Date("04/04/2020"),
           Duration: 3,
           Progress: 50
         },
         {
           TaskID: 8,
-          TaskName: "Estimation approval",
-          StartDate: new Date("04/04/2019"),
+          TaskName: "Meldung Gesundheitsamt",
+          StartDate: new Date("04/04/2020"),
           Duration: 3,
           Progress: 50
         }
