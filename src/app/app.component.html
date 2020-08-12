@@ -115,12 +115,90 @@
 
 			</ng-template>
 		</e-tabitem>
+
+		<e-tabitem>
+			<ng-template #headerText>
+				<div>Test</div>
+			</ng-template>
+			<ng-template #content>
+				<ejs-grid [dataSource]='covidGermany' [allowPaging]="false" [allowSorting]="true"
+					[allowFiltering]="true" [allowGrouping]="true" allowResizing="true" [allowReordering]='true'
+					allowResizing='true' [showColumnChooser]='true' [pageSettings]='pageSettings'
+					[groupSettings]="groupOptions" height=500></ejs-grid>
+			</ng-template>
+		</e-tabitem>
 	</e-tabitems>
 </ejs-tab>
 
 <div>
-  <div>Deutschland (letzte):</div>
-  <pre>{{de_latest | json}}</pre>
+	<div>Deutschland (letzte):</div>
+	<pre>{{de_latest | json}}</pre>
+</div>
+
+<div id="container2">
+	<ejs-tab>
+		<e-tabitems>
+			<e-tabitem>
+				<ng-template #headerText>
+					<div>Auswerungsübersicht</div>
+				</ng-template>
+				<ng-template #content>
+					<div id="container" class="table">
+						<div class="table-row">
+							<div  class="table-cell"><strong>Fallnummer:</strong></div><div  class="table-cell"> {{Patient_Fallnummer}}</div>
+						</div>
+
+						<div class="table-row"> 
+								<div  class="table-cell"><strong>Vorname:</strong></div><div  class="table-cell"> {{Patient_Vorname}}</div>
+						</div>
+
+						<div class="table-row">
+								<div  class="table-cell"><strong>Nachname:</strong></div><div  class="table-cell"> {{Patient_Nachname}}</div>
+						</div>
+						<div class="table-row">
+								<div  class="table-cell"><strong>Aufnahmedatum:</strong></div><div  class="table-cell"> {{Patient_Aufnahmedatum}}</div>
+						</div>
+						<div class="table-row">
+								<div  class="table-cell"><strong>Medikation:</strong></div><div  class="table-cell"> {{Patient_Medikation}}</div>
+						</div>
+						<div class="table-row">
+							<div  class="table-cell">asasaa</div><div  class="table-cell">{{Patient_TODO}}</div>
+						</div>
+						<div class="table-row">
+								<div  class="table-cell"><strong>Diagnosen:</strong></div><div  class="table-cell"> {{Patient_Diagnosen}}</div>
+						</div>
+						<div class="table-row">
+								<div  class="table-cell"><strong>DiagnosenUnformatiert:</strong></div><div  class="table-cell"> {{Patient_DiagnosenUnformatiert}}</div>
+						</div>
+						<div class="table-row">
+								<div  class="table-cell"><strong>Anamnese:</strong></div><div  class="table-cell"> {{Patient_Anamnese}}</div>
+						</div>
+						<div class="table-row">
+								<div  class="table-cell"><strong>Vorerkrankungen:</strong></div><div  class="table-cell"> {{Patient_Vorerkrankungen}}</div>
+						</div>
+						<div class="table-row">
+								<div  class="table-cell"><strong>Voroperationen:</strong></div><div  class="table-cell"> {{Patient_Voroperationen}}</div>
+						</div>
+						<div class="table-row">
+								<div  class="table-cell"><strong>KoerperlicherUntersuchungsbefund:</strong></div><div  class="table-cell"> {{Patient_KoerperlicherUntersuchungsbefund}}</div>
+						</div>
+						<div class="table-row">
+								<div  class="table-cell"><strong>EKGBefund:</strong></div><div  class="table-cell"> {{Patient_EKGBefund}}</div>
+						</div>
+						<div class="table-row">
+								<div  class="table-cell"><strong>BildgebungBefund:</strong></div><div  class="table-cell"> {{Patient_BildgebungBefund}}</div>
+						</div>
+						<div class="table-row">
+								<div  class="table-cell"><strong>Procedere:</strong></div><div  class="table-cell"> {{Patient_Procedere}}</div>
+						</div>
+						<div class="table-row">
+								<div  class="table-cell"><strong>Therapie:</strong></div><div  class="table-cell"> {{Patient_Therapie}}</div>
+						</div>
+					</div>
+				</ng-template>
+			</e-tabitem>
+		</e-tabitems>
+	</ejs-tab>
 </div>
 
 <div class="container">

@@ -17,10 +17,15 @@ import {
 } from "@syncfusion/ej2-angular-grids";
 import { ClickEventArgs } from "@syncfusion/ej2-angular-navigations";
 
+// csv
+import { Papa } from 'ngx-papaparse';
+
 // data
 import { iso } from "./data/iso-3166";
 import cities from "./data/countries.json";
 import populations from "./data/country-by-population.json";
+
+import { csv1 } from './test';
 
 // count 188 date 2020-08-09 result Array[188]- confirmed deaths recovered
 export class covidData {
@@ -58,6 +63,7 @@ export class AppComponent {
   covidResults: any;
 
   de_lastest: any ;
+  covidGermany: any;
 
   // grid
   // aggregates: sum, average, min, max, count, trueCount, FalseCount
@@ -68,7 +74,7 @@ export class AppComponent {
   public confirmedColumns: ColumnModel[];
   public deathsColumns: ColumnModel[];
 
-  constructor(private covidService: Covid19ApiService) {}
+  constructor(private covidService: Covid19ApiService, private papa: Papa) {}
 
   search(term: string) {
     this.searchTerms.next(term);
@@ -147,6 +153,7 @@ export class AppComponent {
 
     console.log(populations[0]);
     console.log(cities[0]);
+    console.log(csv1);
 
     this.covidService.getLatest().subscribe(response => {
       this.covidResults$ = response;
@@ -159,6 +166,15 @@ export class AppComponent {
     this.covidService.getLatestGermany().subscribe(response => {
       this.de_latest = response.result;
     });
+
+    // MAP
+
+/*     this.covidService.getByCountry('DEU').subscribe(response => {
+      this.covidGermany = response.result;
+      console.log(response.result);
+    }); */
+
+    this.parseCsv(csv1);    
   }
 
   countryData: Country[];
@@ -337,6 +353,60 @@ export class AppComponent {
       ["Grid_Collapse", "Grid_Expand"],
       false
     ); // Disable toolbar items.
+  }
+
+
+Patient_Fallnummer: any;
+Patient_Vorname: any;
+Patient_Nachname: any;
+Patient_Aufnahmedatum: any;
+Patient_Medikation: any;
+Patient_TODO: any;
+Patient_Diagnosen: any;
+Patient_DiagnosenUnformatiert: any;
+Patient_Anamnese: any;
+Patient_Vorerkrankungen: any;
+Patient_Voroperationen: any;
+Patient_KoerperlicherUntersuchungsbefund: any;
+Patient_EKGBefund: any;
+Patient_BildgebungBefund: any;
+Patient_Procedere: any;
+Patient_Therapie: any;
+
+  // csv
+  parseCsv(csv:string){
+    this.papa.parse(csv,{
+            header: true,
+            delimiter: ';',
+            // newline	The newline sequence. Leave blank to auto-detect. Must be one of \r, \n, or \r\n.
+            // quoteChar	The character used to quote fields. The quoting of all fields is not mandatory. Any field which is not quoted will correctly read.
+            // escapeChar	The character used to escape the quote character within a field. If not set, this option will default to the value of quoteChar, meaning that the default escaping of quote character within a quoted field is using the quote character two times. (e.g. "column with ""quotes"" in text")
+
+            complete: (result) => {
+                console.log('Parsed: ', result);
+                console.log(result.data);
+                
+                this.Patient_Fallnummer = result.data[0].Fallnummer;
+                this.Patient_Vorname = result.data[0].Vorname;
+                this.Patient_Nachname = result.data[0].Nachname;
+                this.Patient_Aufnahmedatum = result.data[0].Anlegedatum;
+                this.Patient_Medikation = result.data[0].Text;
+                this.Patient_TODO = result.data[0].dosis;
+                this.Patient_Diagnosen = result.data[0].Diagnose;
+                this.Patient_DiagnosenUnformatiert = result.data[0].NoFormatDiagnose;
+                this.Patient_Anamnese = result.data[0].txtanamnese;
+                this.Patient_Vorerkrankungen = result.data[0].txtVorerkrankungen;
+                this.Patient_Voroperationen = result.data[0].txtVoroperationen;
+                this.Patient_KoerperlicherUntersuchungsbefund = result.data[0].txtbefund;
+                this.Patient_EKGBefund = result.data[0].txtekg1;
+                this.Patient_BildgebungBefund = result.data[0].txtr_ntgen;
+                this.Patient_Procedere = result.data[0].txtprocedere;
+                this.Patient_Therapie = result.data[0].txttherapie;
+
+                console.log(this.Patient_Therapie);
+                console.log(this.Patient_KoerperlicherUntersuchungsbefund);
+            }
+        });
   }
 }
 

@@ -69,6 +69,12 @@ export class Covid19ApiService {
       .pipe(result => result);
   }
 
+  getByCountry(countryIso3:string): Observable<any> {
+    const endpoint:string = `https://covidapi.info/api/v1/country/${countryIso3}`
+    return this.http.get(endpoint)
+      .pipe(response => response);
+  }
+
   getByCountryAndDateRange(countryIso3:string, startDate: Date, endDate: Date): Observable<any> {
     const endpoint: string = `https://covidapi.info/api/v1/country/${countryIso3}/timeseries/${startDate}/${endDate}`;
     return this.http.get(endpoint)
