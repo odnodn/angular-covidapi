@@ -16,3 +16,22 @@ p {
 
 .table-row {display: table-row; }
 .table-cell {display: table-cell; padding: 5px;}
+
+/* Inhalationswirkstoffe ToDo */
+a:link, a:visited {
+  background-color: lightblue;
+  color: white;
+  padding: 5px 5px;
+  margin: 1px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a:hover, a:active {
+  background-color: lightcoral;
+}
+
+active a {
+  background-color: lightcoral;
+}

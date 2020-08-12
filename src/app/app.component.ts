@@ -196,9 +196,9 @@ export class AppComponent {
       {
         field: "Typ",
         headerText: "Typ",
-        width: 5,
+        width: 30,
         textAlign: "Center",
-        minWidth: 5,
+        minWidth: 30,
         type: "boolean",
         displayAsCheckBox: "true"
       }
@@ -209,7 +209,7 @@ export class AppComponent {
         headerText: "Mono",
         width: 30,
         textAlign: "Center",
-        minWidth: 5,
+        minWidth: 30,
         type: "boolean",
         displayAsCheckBox: "true"
       },
@@ -218,7 +218,7 @@ export class AppComponent {
         headerText: "Duo",
         width: 30,
         textAlign: "Center",
-        minWidth: 5,
+        minWidth: 30,
         type: "boolean",
         displayAsCheckBox: "true"
       },
@@ -227,7 +227,7 @@ export class AppComponent {
         headerText: "Triple",
         width: 30,
         textAlign: "Center",
-        minWidth: 5,
+        minWidth: 30,
         type: "boolean",
         displayAsCheckBox: "true"
       }
@@ -238,7 +238,7 @@ export class AppComponent {
         headerText: "12h",
         width: 30,
         textAlign: "Center",
-        minWidth: 15,
+        minWidth: 30,
         type: "boolean",
         displayAsCheckBox: "true"
       },
@@ -267,7 +267,7 @@ export class AppComponent {
         headerText: "LABA",
         width: 30,
         textAlign: "Center",
-        minWidth: 5,
+        minWidth: 30,
         type: "boolean",
         displayAsCheckBox: "true"
       },
@@ -276,7 +276,7 @@ export class AppComponent {
         headerText: "SABA",
         width: 30,
         textAlign: "Center",
-        minWidth: 5,
+        minWidth: 30,
         type: "boolean",
         displayAsCheckBox: "true"
       },
@@ -285,7 +285,7 @@ export class AppComponent {
         headerText: "SAMA",
         width: 30,
         textAlign: "Center",
-        minWidth: 5,
+        minWidth: 30,
         type: "boolean",
         displayAsCheckBox: "true"
       },
@@ -294,7 +294,7 @@ export class AppComponent {
         headerText: "ICS",
         width: 30,
         textAlign: "Center",
-        minWidth: 5,
+        minWidth: 30,
         type: "boolean",
         displayAsCheckBox: "true"
       }
@@ -328,7 +328,7 @@ export class AppComponent {
         headerText: "pMDI",
         width: 30,
         textAlign: "Center",
-        minWidth: 5,
+        minWidth: 30,
         type: "boolean",
         displayAsCheckBox: "true"
       },
@@ -337,7 +337,7 @@ export class AppComponent {
         headerText: "PDI",
         width: 30,
         textAlign: "Center",
-        minWidth: 5,
+        minWidth: 30,
         type: "boolean",
         displayAsCheckBox: "true"
       },
@@ -346,7 +346,7 @@ export class AppComponent {
         headerText: "Resp",
         width: 30,
         textAlign: "Center",
-        minWidth: 5,
+        minWidth: 30,
         type: "boolean",
         displayAsCheckBox: "true"
       }
@@ -689,5 +689,176 @@ aggregate
 
 
 component	npm	dependencies	stylesheets	Module	services
+
+ */
+
+
+/**
+ 
+
+var alle = document.getElementById("alle"); alle.onclick = function(){ clearFilters(); return false; };
+var lama = document.getElementById("lama"); lama.onclick = function(){ setLamaFilter(); return false; };
+ var laba = document.getElementById("laba"); laba.onclick = function(){ setLabaFilter(); return false; };
+var ics = document.getElementById("ics"); ics.onclick = function(){ setIcsFilter(); return false; };
+var mono = document.getElementById("mono"); mono.onclick = function(){ setMonoFilter(); return false; };
+var duo = document.getElementById("duo"); duo.onclick = function(){ setDuoFilter(); return false; };
+var triple = document.getElementById("triple"); triple.onclick = function(){ setTripleFilter(); return false; };
+var kombi = document.getElementById("kombi"); kombi.onclick = function(){ setKombiFilter(); return false; };
+
+var copda = document.getElementById("copda"); copda.onclick = function(){ setCopdIndication("copda");  return false; };
+var copdb = document.getElementById("copdb"); copdb.onclick = function(){ setCopdIndication("copdb"); return false; };
+var copdc = document.getElementById("copdc"); copdc.onclick = function(){ setCopdIndication("copdc"); return false; };
+var copdd = document.getElementById("copdd"); copdd.onclick = function(){ setCopdIndication("copdd"); return false; };
+
+var alletypen = document.getElementById("alletypen"); alletypen.onclick = function(){ setDeviceFilter("alletypen"); return false; };
+var pmdi = document.getElementById("pmdi"); pmdi.onclick = function(){ setDeviceFilter("pmdi"); return false; };
+var dpi = document.getElementById("dpi"); dpi.onclick = function(){ setDeviceFilter("dpi"); return false; };
+var respimat = document.getElementById("respimat"); respimat.onclick = function(){ setDeviceFilter("respimat"); return false; };
+
+var lastActiveItem;
+function classToggle (element){
+  document.getElementById(element).classList.toggle("active");
+  //element.classList.toggle("active");
+}
+
+function markElementAsActive(){
+          var current = document.getElementsByClassName("active");
+        // If there's no active class
+        if (current.length > 0) { 
+          current[0].className = current[0].className.replace(" active", "");
+        }
+        // Add the active class to the current/clicked button
+        this.className += " active";
+}
+
+function markElementsAsActive(){
+    // Get the container element
+    var linkContainer = document.getElementById("filterTable");
+
+    // Get all links with class="link" inside the container
+    var links = linkContainer.getElementsByClassName("link");
+
+    // Loop through the links and add the active class to the current/clicked button
+    for (var i = 0; i < links.length; i++) {
+      links[i].addEventListener("click", function() {
+        var current = document.getElementsByClassName("active");
+
+        // If there's no active class
+        if (current.length > 0) { 
+          current[0].className = current[0].className.replace(" active", "");
+        }
+
+        // Add the active class to the current/clicked button
+        this.className += " active";
+      });
+}
+
+}
+
+function clearFilters(){
+  table2.clearFilter();
+}
+
+function setFilter (){
+  table2.setFilter("age", ">", 10);
+}
+
+function setLamaFilter(){
+  table2.clearFilter();
+  table2.setFilter("LAMA", "=", 1);
+}
+
+function setLabaFilter(){
+  table2.clearFilter();
+  table2.setFilter("LABA", "=", 1);
+}
+
+function setIcsFilter(){
+  table2.clearFilter();
+  table2.setFilter("ICS", "=", 1);
+}
+
+function setMonoFilter(){
+  table2.clearFilter();
+  table2.setFilter("Typ", "=", 1);
+  // table2.setFilter("Mono", "=", 1);
+}
+
+function setDuoFilter(){
+  table2.clearFilter();
+  table2.setFilter("Typ", "=", 2);
+  //table2.setFilter("Duo", "=", 1);
+}
+
+function setTripleFilter(){
+  table2.clearFilter();
+  table2.setFilter("Typ", "=", 3);
+  // table2.setFilter("Triple", "=", 1);
+}
+
+function setKombiFilter(){
+  table2.clearFilter();
+  table2.setFilter("Typ", ">=", 2);
+}
+
+function setDeviceFilter(devicetype){
+  switch (devicetype){    
+    case "alletypen":
+          table2.clearFilter();
+    break;
+        case "pmdi":
+          table2.clearFilter();
+          table2.setFilter("pMDI", "=", 1);
+          break;
+        case "dpi":
+          table2.clearFilter();
+          table2.setFilter("PDI", "=", 1);
+         break;
+        case "respimat":
+          table2.clearFilter();
+          table2.setFilter("Resp", "=", 1);
+          break;
+  }
+}
+
+
+function setCopdIndication(stadium){
+  switch (stadium){
+    case "copda": 
+      table2.clearFilter();
+      // keine, SABA, SABA + SAMA
+      table2.setFilter([
+        [
+          {field:"SABA",type:"=",value:"1"},
+          {field:"SAMA",type:"=",value:"1"}
+        ]
+      ]);
+      break;
+    case "copdb": 
+      table2.clearFilter();
+      // LABA, LAMA, LABA+LAMA
+      table2.setFilter([
+        [
+          {field:"LABA",type:"=",value:"1"},
+          {field:"LAMA",type:"=",value:"1"}
+        ]
+      ]);      
+      break;
+    case "copdc": 
+      table2.clearFilter();
+      // LAMA o. LAMA + LABA
+      table2.setFilter([
+        [
+          {field:"LABA",type:"=",value:"1"},
+          {field:"LAMA",type:"=",value:"1"}
+        ]
+      ]);       
+      break;
+    case "copdd": 
+      table2.clearFilter();
+      // LAMA+LABA,LABA+ICS, LAMA+LABA+ICS
+      break;                  
+  }
+}
 
  */

@@ -133,13 +133,51 @@
 				<div>Inhalativa</div>
 			</ng-template>
 			<ng-template #content>
+        <table id="filterTable">
+          <tr>
+            <td> <strong>Indikation: </strong></td>
+            <td><a href="" id="copda" class="link"> COPD A </a></td>
+            <td><a href="" id="copdb" class="link"> COPD B </a></td>
+            <td><a href="" id="copdc" class="link"> COPD C </a></td>
+            <td><a href="" id="copdd" class="link"> COPD D </a></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>  <strong>Devices: </strong></td>    
+            <td><a href="" id="alletypen"> Alle Typen </a></td>
+            <td><a href="" id="pmdi"> pMDI (DA) </a></td>
+            <td><a href="" id="dpi"> DPI (Pulverinhalator) </a></td>
+            <td><a href="" id="respimat"> Respimat </a></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>  <strong>Wirkstoffklassen: </strong></td>
+            <td><a href="" id="alle"> Alle </a></td>
+            <td><a href="" id="lama"> LAMA </a> </td>
+            <td><a href="" id="laba"> LABA </a></td>
+            <td><a href="" id="ics"> ICS </a> </td>
+            <td><a href="" id="mono"> Mono </a> </td>
+            <td><a href="" id="duo"> Duo </a></td>
+            <td><a href="" id="triple"> Triple </a></td>
+            <td><a href="" id="kombi"> Kombi </a> </td>
+          </tr>
+          <tr></tr>
+        </table>
         <ejs-grid [dataSource]="inhalationswirkstoffe" [allowPaging]="false" [allowSorting]="true"
 					[allowFiltering]="true" [allowGrouping]="true" allowResizing="true" [allowReordering]='true'
 					[showColumnChooser]='true'>
           <e-columns>
             <e-column headerText='Präparate' [columns]='praeparatColumns'></e-column>
             <e-column headerText='Frequenz' [columns]='frequencyColumns'></e-column>
-            <e-column headerText='Kombination' [columns]='combiColumns' [visible]='false'></e-column>
+            <e-column headerText='Kombination' [columns]='combiColumns' [visible]="false"></e-column>
             <e-column headerText='Intervall' [columns]='intervallColumns'></e-column>
             <e-column headerText='Klasse' [columns]='klasseColumns'></e-column>
             <e-column headerText='Wirkstoff' [columns]='wirkstoffColumns'></e-column>
@@ -184,7 +222,7 @@
 								<div  class="table-cell"><strong>Medikation:</strong></div><div  class="table-cell"> {{Patient_Medikation}}</div>
 						</div>
 						<div class="table-row">
-							<div  class="table-cell">?</div><div  class="table-cell">{{Patient_TODO}}</div>
+							<div  class="table-cell">????</div><div  class="table-cell">{{Patient_TODO}}</div>
 						</div>
 						<div class="table-row">
 								<div  class="table-cell"><strong>Diagnosen:</strong></div><div  class="table-cell"> {{Patient_Diagnosen}}</div>
