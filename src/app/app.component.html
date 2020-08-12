@@ -134,57 +134,57 @@
 				<div>Inhalativa</div>
 			</ng-template>
 			<ng-template #content>
-        <table id="filterTable">
-          <tr>
-            <td> <strong>Indikation: </strong></td>
-            <td><a href="" id="copda" class="link"> COPD A </a></td>
-            <td><a href="" id="copdb" class="link"> COPD B </a></td>
-            <td><a href="" id="copdc" class="link"> COPD C </a></td>
-            <td><a href="" id="copdd" class="link"> COPD D </a></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>  <strong>Devices: </strong></td>    
-            <td><a href="" id="alletypen"> Alle Typen </a></td>
-            <td><a href="" id="pmdi"> pMDI (DA) </a></td>
-            <td><a href="" id="dpi"> DPI (Pulverinhalator) </a></td>
-            <td><a href="" id="respimat"> Respimat </a></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>  <strong>Wirkstoffklassen: </strong></td>
-            <td><a href="" id="alle"> Alle </a></td>
-            <td><a href="" id="lama"> LAMA </a> </td>
-            <td><a href="" id="laba"> LABA </a></td>
-            <td><a href="" id="ics"> ICS </a> </td>
-            <td><a href="" id="mono"> Mono </a> </td>
-            <td><a href="" id="duo"> Duo </a></td>
-            <td><a href="" id="triple"> Triple </a></td>
-            <td><a href="" id="kombi"> Kombi </a> </td>
-          </tr>
-          <tr></tr>
-        </table>
-        <ejs-grid [dataSource]="inhalationswirkstoffe" [allowPaging]="false" [allowSorting]="true"
+				<table id="filterTable">
+					<tr>
+						<td> <strong>Indikation: </strong></td>
+						<td><a href="" id="copda" class="link"> COPD A </a></td>
+						<td><a href="" id="copdb" class="link"> COPD B </a></td>
+						<td><a href="" id="copdc" class="link"> COPD C </a></td>
+						<td><a href="" id="copdd" class="link"> COPD D </a></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td> <strong>Devices: </strong></td>
+						<td><a href="" id="alletypen"> Alle Typen </a></td>
+						<td><a href="" id="pmdi"> pMDI (DA) </a></td>
+						<td><a href="" id="dpi"> DPI (Pulverinhalator) </a></td>
+						<td><a href="" id="respimat"> Respimat </a></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td> <strong>Wirkstoffklassen: </strong></td>
+						<td><a href="" id="alle"> Alle </a></td>
+						<td><a href="" id="lama"> LAMA </a> </td>
+						<td><a href="" id="laba"> LABA </a></td>
+						<td><a href="" id="ics"> ICS </a> </td>
+						<td><a href="" id="mono"> Mono </a> </td>
+						<td><a href="" id="duo"> Duo </a></td>
+						<td><a href="" id="triple"> Triple </a></td>
+						<td><a href="" id="kombi"> Kombi </a> </td>
+					</tr>
+					<tr></tr>
+				</table>
+				<ejs-grid [dataSource]="inhalationswirkstoffe" [allowPaging]="false" [allowSorting]="true"
 					[allowFiltering]="true" [allowGrouping]="true" allowResizing="true" [allowReordering]='true'
 					[showColumnChooser]='true'>
-          <e-columns>
-            <e-column headerText='Präparate' [columns]='praeparatColumns'></e-column>
-            <e-column headerText='Frequenz' [columns]='frequencyColumns'></e-column>
-            <e-column headerText='Kombination' [columns]='combiColumns' [visible]="false"></e-column>
-            <e-column headerText='Intervall' [columns]='intervallColumns'></e-column>
-            <e-column headerText='Klasse' [columns]='klasseColumns'></e-column>
-            <e-column headerText='Wirkstoff' [columns]='wirkstoffColumns'></e-column>
-            <e-column headerText='Devicetyp' [columns]='devicetypColumns'></e-column>
-          </e-columns>
-          </ejs-grid>
+					<e-columns>
+						<e-column headerText='Präparate' [columns]='praeparatColumns'></e-column>
+						<e-column headerText='Frequenz' [columns]='frequencyColumns'></e-column>
+						<e-column headerText='Kombination' [columns]='combiColumns' [visible]="false"></e-column>
+						<e-column headerText='Intervall' [columns]='intervallColumns'></e-column>
+						<e-column headerText='Klasse' [columns]='klasseColumns'></e-column>
+						<e-column headerText='Wirkstoff' [columns]='wirkstoffColumns'></e-column>
+						<e-column headerText='Devicetyp' [columns]='devicetypColumns'></e-column>
+					</e-columns>
+				</ejs-grid>
 			</ng-template>
 		</e-tabitem>
 
@@ -206,151 +206,183 @@
 				<ng-template #content>
 					<div id="container" class="table">
 						<div class="table-row">
-							<div  class="table-cell"><strong>Fallnummer:</strong></div><div  class="table-cell"> {{Patient_Fallnummer}}</div>
-						</div>
-
-						<div class="table-row"> 
-								<div  class="table-cell"><strong>Vorname:</strong></div><div  class="table-cell"> {{Patient_Vorname}}</div>
+							<div class="table-cell"><strong>Fallnummer:</strong></div>
+							<div class="table-cell"> {{Patient_Fallnummer}}</div>
 						</div>
 
 						<div class="table-row">
-								<div  class="table-cell"><strong>Nachname:</strong></div><div  class="table-cell"> {{Patient_Nachname}}</div>
+							<div class="table-cell"><strong>Vorname:</strong></div>
+							<div class="table-cell"> {{Patient_Vorname}}</div>
+						</div>
+
+						<div class="table-row">
+							<div class="table-cell"><strong>Nachname:</strong></div>
+							<div class="table-cell"> {{Patient_Nachname}}</div>
 						</div>
 						<div class="table-row">
-								<div  class="table-cell"><strong>Aufnahmedatum:</strong></div><div  class="table-cell"> {{Patient_Aufnahmedatum}}</div>
+							<div class="table-cell"><strong>Aufnahmedatum:</strong></div>
+							<div class="table-cell"> {{Patient_Aufnahmedatum}}</div>
 						</div>
 						<div class="table-row">
-								<div  class="table-cell"><strong>Medikation:</strong></div><div  class="table-cell"> {{Patient_Medikation}}</div>
+							<div class="table-cell"><strong>Medikation:</strong></div>
+							<div class="table-cell"> {{Patient_Medikation}}</div>
 						</div>
 						<div class="table-row">
-							<div  class="table-cell">????</div><div  class="table-cell">{{Patient_TODO}}</div>
+							<div class="table-cell">????</div>
+							<div class="table-cell">{{Patient_TODO}}</div>
 						</div>
 						<div class="table-row">
-								<div  class="table-cell"><strong>Diagnosen:</strong></div><div  class="table-cell"> {{Patient_Diagnosen}}</div>
+							<div class="table-cell"><strong>Diagnosen:</strong></div>
+							<div class="table-cell"> {{Patient_Diagnosen}}</div>
 						</div>
 						<div class="table-row">
-								<div  class="table-cell"><strong>DiagnosenUnformatiert:</strong></div><div  class="table-cell"> {{Patient_DiagnosenUnformatiert}}</div>
+							<div class="table-cell"><strong>DiagnosenUnformatiert:</strong></div>
+							<div class="table-cell"> {{Patient_DiagnosenUnformatiert}}</div>
 						</div>
 						<div class="table-row">
-								<div  class="table-cell"><strong>Anamnese:</strong></div><div  class="table-cell"> {{Patient_Anamnese}}</div>
+							<div class="table-cell"><strong>Anamnese:</strong></div>
+							<div class="table-cell"> {{Patient_Anamnese}}</div>
 						</div>
 						<div class="table-row">
-								<div  class="table-cell"><strong>Vorerkrankungen:</strong></div><div  class="table-cell"> {{Patient_Vorerkrankungen}}</div>
+							<div class="table-cell"><strong>Vorerkrankungen:</strong></div>
+							<div class="table-cell"> {{Patient_Vorerkrankungen}}</div>
 						</div>
 						<div class="table-row">
-								<div  class="table-cell"><strong>Voroperationen:</strong></div><div  class="table-cell"> {{Patient_Voroperationen}}</div>
+							<div class="table-cell"><strong>Voroperationen:</strong></div>
+							<div class="table-cell"> {{Patient_Voroperationen}}</div>
 						</div>
 						<div class="table-row">
-								<div  class="table-cell"><strong>Körperlicher Untersuchungsbefund:</strong></div><div  class="table-cell"> {{Patient_KoerperlicherUntersuchungsbefund}}</div>
+							<div class="table-cell"><strong>Körperlicher Untersuchungsbefund:</strong></div>
+							<div class="table-cell"> {{Patient_KoerperlicherUntersuchungsbefund}}</div>
 						</div>
 						<div class="table-row">
-								<div  class="table-cell"><strong>EKGBefund:</strong></div><div  class="table-cell"> {{Patient_EKGBefund}}</div>
+							<div class="table-cell"><strong>EKGBefund:</strong></div>
+							<div class="table-cell"> {{Patient_EKGBefund}}</div>
 						</div>
 						<div class="table-row">
-								<div  class="table-cell"><strong>BildgebungBefund:</strong></div><div  class="table-cell"> {{Patient_BildgebungBefund}}</div>
+							<div class="table-cell"><strong>BildgebungBefund:</strong></div>
+							<div class="table-cell"> {{Patient_BildgebungBefund}}</div>
 						</div>
 						<div class="table-row">
-								<div  class="table-cell"><strong>Procedere:</strong></div><div  class="table-cell"> {{Patient_Procedere}}</div>
+							<div class="table-cell"><strong>Procedere:</strong></div>
+							<div class="table-cell"> {{Patient_Procedere}}</div>
 						</div>
 						<div class="table-row">
-								<div  class="table-cell"><strong>Therapie:</strong></div><div  class="table-cell"> {{Patient_Therapie}}</div>
+							<div class="table-cell"><strong>Therapie:</strong></div>
+							<div class="table-cell"> {{Patient_Therapie}}</div>
 						</div>
 					</div>
 				</ng-template>
 			</e-tabitem>
 
-      <e-tabitem>
-        <ng-template #headerText>
-          <div>Covid-Timeline</div>
-        </ng-template>
-        <ng-template #content>
-          <ejs-gantt id="ganttDefault" height="430px" [dataSource]="ganttData" [taskFields]="taskSettings"></ejs-gantt>
-        </ng-template>
-      </e-tabitem>
+			<e-tabitem>
+				<ng-template #headerText>
+					<div>Covid-Timeline</div>
+				</ng-template>
+				<ng-template #content>
+					<ejs-gantt id="ganttDefault" height="430px" [dataSource]="ganttData" [taskFields]="taskSettings">
+					</ejs-gantt>
+				</ng-template>
+			</e-tabitem>
 
-      <e-tabitem>
-        <ng-template #headerText>
-          <div>Visiten</div>
-        </ng-template>
-        <ng-template #content>
-          
-        </ng-template>
-      </e-tabitem>
+			<e-tabitem>
+				<ng-template #headerText>
+					<div>Visiten</div>
+				</ng-template>
+				<ng-template #content>
 
-      <e-tabitem>
-        <ng-template #headerText>
-          <div>Covid-Labor</div>
-        </ng-template>
-        <ng-template #content>
-          
-        </ng-template>
-      </e-tabitem>
+				</ng-template>
+			</e-tabitem>
 
-      <e-tabitem>
-        <ng-template #headerText>
-          <div>Triage</div>
-        </ng-template>
-        <ng-template #content>
-          
-        </ng-template>
-      </e-tabitem>      
+			<e-tabitem>
+				<ng-template #headerText>
+					<div>Covid-Labor</div>
+				</ng-template>
+				<ng-template #content>
 
-    <e-tabitem>
-      <ng-template #headerText>
-        <div>Covid Übersicht</div>
-      </ng-template>
-      <ng-template #content>
-        
-      </ng-template>
-    </e-tabitem>
+				</ng-template>
+			</e-tabitem>
 
-    <e-tabitem>
-      <ng-template #headerText>
-        <div>Cryptography</div>
-      </ng-template>
-      <ng-template #content>
-<div>  
-  <div class="row">  
-    <div class="col-sm-6">  
-      <button type="button" class="btn btn-primary btn-lg btn-block">  
+			<e-tabitem>
+				<ng-template #headerText>
+					<div>Triage</div>
+				</ng-template>
+				<ng-template #content>
+
+				</ng-template>
+			</e-tabitem>
+
+			<e-tabitem>
+				<ng-template #headerText>
+					<div>Covid Übersicht</div>
+				</ng-template>
+				<ng-template #content>
+
+				</ng-template>
+			</e-tabitem>
+
+			<e-tabitem>
+				<ng-template #headerText>
+					<div>Cryptography</div>
+				</ng-template>
+				<ng-template #content>
+					<div>
+						<div class="row">
+							<div class="col-sm-6">
+								<button type="button" class="btn btn-primary btn-lg btn-block">
         Encryption  
-      </button>  
-      <br>  
-      <div class="form-group">  
-        <label for="txtTextToConvert">Plain Text</label>  
-        <input type="text" class="form-control" placeholder="Enter text you want to encrypt" [(ngModel)]="plainText">  
-      </div>  
-  
-      <div class="form-group">  
-        <label for="txtPassword">Password</label>  
-        <input type="password" class="form-control" placeholder="Enter encryption password" [(ngModel)]="encPassword">  
-      </div>  
-      <textarea class="form-control" readonly rows="3">{{conversionEncryptOutput}}</textarea>  
-      <br>  
-      <button type="button" class="btn btn-success float-right" (click)="convertText('encrypt')">Encrypt</button>  
-    </div>  
-    <div class="col-sm-6">  
-      <button type="button" class="btn btn-dark btn-lg btn-block">  
+      </button>
+								<br>
+								<div class="form-group">
+									<label for="txtTextToConvert">Plain Text</label>
+									<input type="text" class="form-control" placeholder="Enter text you want to encrypt" [(ngModel)]="plainText">
+      </div>
+
+									<div class="form-group">
+										<label for="txtPassword">Password</label>
+										<input type="password" class="form-control" placeholder="Enter encryption password" [(ngModel)]="encPassword">
+      </div>
+										<textarea class="form-control" readonly rows="3">{{conversionEncryptOutput}}</textarea>
+										<br>
+										<button type="button" class="btn btn-success float-right" (click)="convertText('encrypt')">Encrypt</button>
+									</div>
+									<div class="col-sm-6">
+										<button type="button" class="btn btn-dark btn-lg btn-block">
         Decryption  
-      </button>  
-      <br>  
-      <div class="form-group">  
-        <label for="txtTextToConvert">Encrypted Text</label>  
-        <input type="text" class="form-control" placeholder="Enter text you want to decrypt" [(ngModel)]="encryptText">  
-      </div>  
-  
-      <div class="form-group">  
-        <label for="txtPassword">Password</label>  
-        <input type="password" class="form-control" placeholder="Enter decryption password" [(ngModel)]="decPassword">  
-      </div>  
-      <textarea class="form-control" readonly rows="3">{{conversionDecryptOutput}}</textarea>  
-      <br>  
-      <button type="button" class="btn btn-success float-right" (click)="convertText('decrypt')">Decrypt</button>  
-    </div>  
-  </div>  
-</div>        
-      </ng-template>
-    </e-tabitem>
+      </button>
+										<br>
+										<div class="form-group">
+											<label for="txtTextToConvert">Encrypted Text</label>
+											<input type="text" class="form-control" placeholder="Enter text you want to decrypt" [(ngModel)]="encryptText">
+      </div>
+
+											<div class="form-group">
+												<label for="txtPassword">Password</label>
+												<input type="password" class="form-control" placeholder="Enter decryption password" [(ngModel)]="decPassword">
+      </div>
+												<textarea class="form-control" readonly rows="3">{{conversionDecryptOutput}}</textarea>
+												<br>
+												<button type="button" class="btn btn-success float-right" (click)="convertText('decrypt')">Decrypt</button>
+											</div>
+										</div>
+									</div>
+				</ng-template>
+			</e-tabitem>
+
+			<e-tabitem>
+				<ng-template #headerText>
+					<div>Dateien</div>
+				</ng-template>
+				<ng-template #content>
+					<label>Select a File(s) (&lt; 1MB)</label>
+					<br/>
+					<input type="file"
+       (change)="onFileChange($event)"
+       multiple="multiple" />
+					<br/>
+					<button (click)="uploadFile()" [disabled]="!theFiles.length">  Upload {{theFiles.length}} File(s) </button>
+				</ng-template>
+			</e-tabitem>
 
 		</e-tabitems>
 	</ejs-tab>

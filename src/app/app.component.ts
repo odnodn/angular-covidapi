@@ -755,18 +755,108 @@ export class AppComponent {
   }
 
   // crypto
-    //method is used to encrypt and decrypt the text  
-  convertText(conversion:string) {  
-      if (conversion=="encrypt") {  
-        this.conversionEncryptOutput = CryptoJS.AES.encrypt(this.plainText.trim(), this.encPassword.trim()).toString();  
-      }  
-      else {  
-        this.conversionDecryptOutput = CryptoJS.AES.decrypt(this.encryptText.trim(), this.decPassword.trim()).toString(CryptoJS.enc.Utf8);  
-       
-    }  
-  }  
-}  
+  //method is used to encrypt and decrypt the text
+  convertText(conversion: string) {
+    if (conversion == "encrypt") {
+      this.conversionEncryptOutput = CryptoJS.AES.encrypt(
+        this.plainText.trim(),
+        this.encPassword.trim()
+      ).toString();
+    } else {
+      this.conversionDecryptOutput = CryptoJS.AES.decrypt(
+        this.encryptText.trim(),
+        this.decPassword.trim()
+      ).toString(CryptoJS.enc.Utf8);
+    }
+  }
 
+  // file upload
+  // https://www.codemag.com/article/1901061/Upload-Small-Files-to-a-Web-API-Using-Angular
+  MAX_SIZE: number = 1048576;
+  theFiles: any[] = [];
+  messages: string[] = [];
+
+  uploadFile(): void {
+    for (let index = 0; index < this.theFiles.length; index++) {
+      this.readAndUploadFile(this.theFiles[index]);
+    }
+  }
+
+  onFileChange(event) {
+    this.theFiles = [];
+
+    // Any file(s) selected from the input?
+    if (event.target.files && event.target.files.length > 0) {
+      for (let index = 0; index < event.target.files.length; index++) {
+        let file = event.target.files[index];
+        // Don't allow file sizes over 1MB
+        if (file.size < this.MAX_SIZE) {
+          // Add file to list of files
+          this.theFiles.push(file);
+        } else {
+          this.messages.push("File: " + file.name + " is too large to upload.");
+        }
+      }
+    }
+  }
+
+  private readAndUploadFile(theFile: any) {
+    let file = new FileToUpload();
+
+    // Set File Information
+    file.fileName = theFile.name;
+    file.fileSize = theFile.size;
+    file.fileType = theFile.type;
+    file.lastModifiedTime = theFile.lastModified;
+    file.lastModifiedDate = theFile.lastModifiedDate;
+
+    // Use FileReader() object to get file to upload
+    // NOTE: FileReader only works with newer browsers
+    let reader = new FileReader();
+
+    // Setup onload event for reader
+    reader.onload = () => {
+      // Store base64 encoded representation of file
+      file.fileAsBase64 = reader.result.toString();
+
+      // POST to server
+/*       this.uploadService.uploadFile(file).subscribe(resp => {
+        this.messages.push("Upload complete");
+      }); */
+    };
+
+    // Read the file
+    reader.readAsDataURL(theFile);
+  }
+}
+
+export class FileToUpload {
+  fileName: string = "";
+  fileSize: number = 0;
+  fileType: string = "";
+  lastModifiedTime: number = 0;
+  lastModifiedDate: Date = null;
+  fileAsBase64: string = "";
+}
+
+/* import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { FileToUpload } from "./file-to-upload";
+
+export class UploadService {
+  API_URL = "http://localhost:5000/api/FileUpload/";
+  httpOptions = {
+    headers: new HttpHeaders({
+      "Content-Type": "application/json"
+    })
+  };
+
+  constructor(private http: HttpClient) {}
+
+  uploadFile(theFile: FileToUpload): Observable<any> {
+    return this.http.post<FileToUpload>(API_URL, theFile, httpOptions);
+  }
+} */
 
 /**
  * 
