@@ -12,9 +12,10 @@ import { PageService, SortService, FilterService, GroupService, AggregateService
         ToolbarService, ExcelExportService  } from '@syncfusion/ej2-angular-grids';
 import { ToolbarModule, TabModule } from '@syncfusion/ej2-angular-navigations';
 import { DashboardLayoutModule } from '@syncfusion/ej2-angular-layouts';
+import { GanttModule } from '@syncfusion/ej2-angular-gantt';
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, HttpClientModule, GridModule, ToolbarModule, TabModule, DashboardLayoutModule ],
+  imports:      [ BrowserModule, FormsModule, HttpClientModule, GridModule, ToolbarModule, TabModule, DashboardLayoutModule, GanttModule  ],
   declarations: [ AppComponent, HelloComponent ],
   bootstrap:    [ AppComponent ],
   providers: [Covid19ApiService, 
