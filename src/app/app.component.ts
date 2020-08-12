@@ -441,3 +441,53 @@ countries.json
 // https://github.com/disease-sh/node-api#readme
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
+
+/**
+
+<ejs-tab>
+  <e-tabitems>
+    <e-tabitem>
+      <ng-template #headerText>
+        <div></div>
+      </ng-template>
+      <ng-template #content>
+        
+      </ng-template>
+    </e-tabitem>
+  </e-tabitems>
+</ejs-tab>
+
+<e-column field='OrderID' headerText='Order ID' textAlign='Right' width=90 format='C2'format='yMd' ></e-column>
+
+<e-column field='' headerText='' textAlign='Right' width=90></e-column>
+
+columnname
+columnMinwWidth
+columnMaxWidth
+columnFormat
+allowResize
+allowGrouping
+allowSorting
+groupBy
+groupByPosition
+propertyType
+displayLabelname
+displayGridname
+editorTypeGrid
+editorTypeForm
+widthGridColumn
+widthForm
+mask
+isRequired
+min
+max
+length
+precision
+defaultValue
+aggregate
+[showInColumnChooser]='false'
+
+
+component	npm	dependencies	stylesheets	Module	services
+
+ */
