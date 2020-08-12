@@ -26,6 +26,7 @@ import cities from "./data/countries.json";
 import populations from "./data/country-by-population.json";
 
 import { csv1 } from './test';
+import { csv2 } from './test';
 
 // count 188 date 2020-08-09 result Array[188]- confirmed deaths recovered
 export class covidData {
