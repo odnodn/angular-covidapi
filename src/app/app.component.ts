@@ -94,6 +94,7 @@ export class AppComponent {
       TaskName: "Patient A",
       StartDate: new Date("04/02/2020"),
       EndDate: new Date("04/21/2020"),
+      Duration: 4,
       subtasks: [
         {
           TaskID: 2, 
